@@ -2,7 +2,7 @@ CREATE TABLE days_table(
     days VARCHAR (100),
     id serial primary key
 
-)
+);
 
 INSERT INTO days_table 
 (days) VALUES ('Monday');
