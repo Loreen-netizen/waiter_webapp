@@ -1,0 +1,11 @@
+body {
+    background-color: rgb(255, 39, 122);
+}
+
+.mainDiv {
+    padding: 3em;
+    /* margin: auto; */
+    /* background-image: url(https://images.pexels.com/photos/4033639/pexels-photo-4033639.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
