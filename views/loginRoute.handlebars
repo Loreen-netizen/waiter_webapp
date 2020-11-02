@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>waiter_web_application</title>
+    <title>login_web_application</title>
 </head>
 
 <body>
@@ -19,23 +19,18 @@
                     <h2 class="col-12 titleHeader">Waiter Availability</h2>
                 </div>
 
-                <div class="row py-5 px-5">
-                    <form action="/waiters/:username" method="POST">
-                        {{#each daysObj}}
-                        <div class="form-check form-check-inline py-5">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{this.days}}">
-                            <label class="form-check-label" for="inlineCheckbox1"
-                                name="selectedDays">{{this.days}}</label>
+                <div class="row py-5 px-5 justify-content-center">
+                    <form action="/waiters/:username" method="GET">
+                        <div class="form-group">
+
+                            <input type="text" class="" placeholder="Enter name" name="waiterName">
                         </div>
-                        {{/each}}
                         <br>
-                        <button type="submit" class="btn-lg outline-secondary">submit</button>
-
-
+                        <button type="submit" class="btn btn-light btn-lg">Pick Shifts</button>
                     </form>
 
                 </div>
-               
+
             </div>
 
             <div class="col-1">

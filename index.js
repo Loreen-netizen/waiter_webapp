@@ -1,6 +1,7 @@
 let express = require("express");
 let handlebars = require("express-handlebars");
 let session = require("express-session");
+let flash = require('express-flash');
 
 let pg = require("pg");
 let Pool = pg.Pool;
@@ -26,25 +27,58 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
+app.use(flash());
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
+app.get("/addFlash", function(req, res) {
+    try {
+        req.flash('success', 'flash Message added')
+        res.redirect('/')
+    } catch (error) {
+        console.log(error)
+    }
+});
 
 
 app.get("/", async function(req, res) {
-    var daysObj = await waiterFacFun.daysObject();
+    res.render("loginRoute")
+});
+
+app.get("/waiters/:username", async function(req, res) {
+    let daysObj = await waiterFacFun.daysObject();
     res.render("index", {
         daysObj
     })
-})
-
-app.post("daysObject", function(req, res) {
-
 
 });
+
+app.post("/waiters/:username", async function(req, res) {
+        try {
+            let waiterName = await req.session.waiterName;
+            console.log(waiterName);
+            let daysSelected = await req.session.selectedDays;
+            console.log(daysSelected);
+            // let daysObj = await waiterFacFun.daysObject();
+            let storeDays = await waiterFacFun.storeShifts(waiterName, daysSelected);
+            if (storeDays === "null values") {
+                req.flash('info', 'SUCCESSFULLY added shifts!!')
+            }
+            res.render("successRoute")
+        } catch (error) {
+            console.log(error)
+        }
+
+    })
+    // app.post("daysObject", async function(req, res) {
+    //     let daysObj = await waiterFacFun.daysObject();
+    //     res.render("index", {
+    //         daysObj
+    //     })
+
+// });
 
 app.listen(PORT, function() {
     console.log("App starting on port", PORT)

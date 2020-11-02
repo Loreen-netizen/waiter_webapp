@@ -4,6 +4,16 @@ CREATE TABLE days_table(
 
 );
 
+CREATE TABLE shifts(
+    waiter_name VARCHAR (100),
+    waiter_id serial primary key,
+    days_selected VARCHAR (100)
+
+)
+
+INSERT INTO shifts 
+(waiter_name, days_selected) VALUES ('yeu', 'Tuesday');
+
 INSERT INTO days_table 
 (days) VALUES ('Monday');
 
