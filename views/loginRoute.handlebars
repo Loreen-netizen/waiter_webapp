@@ -21,14 +21,29 @@
 
                 <div class="row py-5 px-5 justify-content-center">
                     <form action="/waiters/:username" method="GET">
-                        <small><label for="input">please sign in</label></small>  
+                        <label for="input">waiter sign in</label> 
                         
                         <div class="form-group">
-                             <input type="text" class="" placeholder="Enter name" name="waiterName">
+                             <input type="text" class="" placeholder="please enter waiter name" name="waiterName">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-light btn">Pick Shifts</button>
+                    </form>
+
+                </div>
+                 <div class="row justify-content-center">
+                     <div class="col-sm-12">
+                         <form action="/waiters/:username" method="GET">
+                        <label for="input">admin sign in</label> 
+                        
+                        <div class="form-group">
+                             <input type="text" class="input" placeholder="please enter admin name" name="waiterName">
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-light btn-lg">Pick Shifts</button>
+                        <button type="submit" class="btn btn-light btn">View Shifts</button>
                     </form>
+                     </div>
+                    
 
                 </div>
 
