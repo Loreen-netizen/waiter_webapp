@@ -17,7 +17,8 @@ CREATE TABLE users(
     user_name VARCHAR (100),
     user_password TEXT,
     user_id serial primary key
-)
+);
+
 INSERT INTO days_table 
 (days) VALUES ('Monday');
 

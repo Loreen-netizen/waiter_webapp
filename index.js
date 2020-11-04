@@ -75,22 +75,24 @@ app.post("/waiters/:username", async function(req, res) {
     let name = await req.body.userName;
     console.log({ name });
     let userPassword = await req.body.userPassword;
-    console.log(userPassword)
-    let verifyUser = await waiterFacFun.verifyUser(name, userPassword)
-    console.log({ create });
+    console.log({ userPassword })
+    let verify = await waiterFacFun.verifyUser(name, userPassword)
+
     console.log({ signIn });
+    console.log({ verify });
 
     try {
 
         if (create) {
-
+            console.log("createSelected");
             let storeDetails = await waiterFacFun.storeDetails(name, userPassword);
 
             req.flash('info', 'success!! account created')
             res.render("index", {
                 storeDetails
             })
-        } else if ((signIn) && (verifyUser >= 1)) {
+        } else if ((signIn) && (verify >= 1)) {
+            console.log("signinselected")
             let signInUser = await waiterFacFun.signInUser(name);
             req.flash('info', 'log in successful!!')
 

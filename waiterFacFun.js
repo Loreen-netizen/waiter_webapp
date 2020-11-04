@@ -11,19 +11,28 @@ let waiterFacFun = function(pool) {
         if (userName === "Admin") {
             return "Admin"
         } else {
-            let storeDetailsQuery = await pool.query('INSERT INTO users (user_name, user_password) VALUES ($1, $2)' [userName], [userPassword]);
-            storeShiftsQuery;
+            let storeDetailsQuery = await pool.query('INSERT INTO users (user_name, user_password) VALUES ($1, $2)', [userName, userPassword]);
+            storeDetailsQuery;
+            console.log("stored")
         }
     }
 
     let verifyUser = async function(userName, userPassword) {
-        let verifyUserQuery = await pool.query(`SELECT (user_name, user_password) FROM users WHERE password= ($1, $2)` [userName], [userPassword]);
-        console.log(verifyUserQuery.rows)
-        return verifyUserQuery.rows;
-    }
+        try {
+            var verifyUserQuery = await pool.query(`SELECT * FROM users WHERE user_name=($1) AND user_password=($2)`, [userName, userPassword]);
+
+            if (!verifyUserQuery) {
+                return null
+            } else { return verifyUserQuery.rows };
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    };
 
     let signInUser = async function(userName) {
-        let signInUserQuery = await pool.query(`SELECT shifts * FROM shifts WHERE waiter_name = ($1)` [userName]);
+        let signInUserQuery = await pool.query(`SELECT shifts * FROM shifts WHERE waiter_name = ($1)`, [userName]);
         console.log({ signInUserQuery })
     }
 
