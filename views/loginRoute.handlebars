@@ -20,8 +20,8 @@
                 </div>
 
                 <div class="row py-5 px-5 justify-content-center">
-                    <form action="/waiters/:username" method="GET">
-                        <label for="input">please sign in</label> 
+                    <form action="/waiters/:username" method="POST">
+                        <label for="input">please create account or sign in</label> 
                         
                         <div class="form-group">
                              <input type="text" class="" placeholder="enter waiter name or admin" name="userName">
@@ -29,8 +29,8 @@
                          <div class="form-group">
                              <input type="text" class="" placeholder="enter password" name="userPassword">
                         </div>
-                        
-                        <button type="submit" class="btn btn-light btn">sign in</button>
+                         <button type="submit" class="btn btn-light btn" name="createAccount" value="create">create account</button>
+                        <button type="submit" class="btn btn-light btn" name="sign" value="signIn">sign in</button>
                     </form>
 
                 </div>

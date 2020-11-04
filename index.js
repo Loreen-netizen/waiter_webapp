@@ -17,7 +17,6 @@ let waiterFacFun = WaiterFacFun(pool);
 
 let bodyParser = require("body-parser")
 let app = express();
-let PORT = process.env.PORT || 3000;
 
 app.engine('handlebars', handlebars({ layoutsDir: "./views/layouts" }));
 app.set('view engine', 'handlebars');
@@ -70,30 +69,71 @@ app.get("/backtologin", async function(req, res) {
 })
 
 app.post("/waiters/:username", async function(req, res) {
-        try {
-            let waiterName = await req.session.waiterName;
-            console.log(waiterName);
-            let daysSelected = await req.session.selectedDays;
-            console.log(daysSelected);
-            // let daysObj = await waiterFacFun.daysObject();
-            let storeDays = await waiterFacFun.storeShifts(waiterName, daysSelected);
-            if (storeDays === "null values") {
-                req.flash('info', 'SUCCESSFULLY added shifts!!')
-            }
-            res.render("successRoute")
-        } catch (error) {
-            console.log(error)
+
+    let create = await req.body.createAccount;
+    let signIn = await req.body.sign;
+    let name = await req.body.userName;
+    console.log({ name });
+    let userPassword = await req.body.userPassword;
+    console.log(userPassword)
+    let verifyUser = await waiterFacFun.verifyUser(name, userPassword)
+    console.log({ create });
+    console.log({ signIn });
+
+    try {
+
+        if (create) {
+
+            let storeDetails = await waiterFacFun.storeDetails(name, userPassword);
+
+            req.flash('info', 'success!! account created')
+            res.render("index", {
+                storeDetails
+            })
+        } else if ((signIn) && (verifyUser >= 1)) {
+            let signInUser = await waiterFacFun.signInUser(name);
+            req.flash('info', 'log in successful!!')
+
+            res.render("index", {
+                signInUser
+            })
+        } else if ((!signIn) && (!create)) {
+            res.render("loginRoute")
         }
-
-    })
-    // app.post("daysObject", async function(req, res) {
-    //     let daysObj = await waiterFacFun.daysObject();
-    //     res.render("index", {
-    //         daysObj
-    //     })
-
-// });
+    } catch (error) {
+        console.log(error)
+    }
+});
+let PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function() {
-    console.log("App starting on port", PORT)
-});
+        console.log("App starting on port", PORT)
+    })
+    //     if (storeDays === "null values") {
+    //         req.flash('info', 'SUCCESSFULLY added shifts!!')
+    //     }
+    //     res.render("successRoute")
+    // } catch (error) {
+    //     console.log(error)
+    // }
+
+// })
+// app.post("daysObject", async function(req, res) {
+//     let daysObj = await waiterFacFun.daysObject();
+//     res.render("index", {
+//         daysObj
+//     })
+
+// });
+// SUCCESS MESSAGE
+// if (storeDays === "null values") {
+//     req.flash('info', 'SUCCESSFULLY added shifts!!')
+// }
+// res.render("successRoute")
+// } catch (error) {
+// console.log(error)
+// }
+
+// })
+
+// SUCCESS MESSAGE

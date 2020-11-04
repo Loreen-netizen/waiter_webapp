@@ -35,25 +35,32 @@
                     </form>
 
                 </div>
-               
+
             </div>
 
             <div class="col-1">
-                <h3></h3>
+                {{#if storeDetails}}
+
+                {{storeDetails}}
+
+                {{else}}
+                {{signIn}}
+
+                {{/if}}
             </div>
 
 
 
         </div>
 
-          <div class="row">
-                <form action="/backtologin" method="GET">
+        <div class="row">
+            <form action="/backtologin" method="GET">
                 <div class="col-12 pl-5 mx-5 my-3">
                     <button type="submit" class="btn btn-light btn">back</button>
 
                 </div>
             </form>
-           </div>
+        </div>
 
 
     </div>
