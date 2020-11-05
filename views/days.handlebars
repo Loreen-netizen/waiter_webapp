@@ -21,28 +21,29 @@
                 </div>
 
                 <div class="row py-5 px-5">
-                  
-<table class="table table-hover text-light">
-  <thead>
-    <tr>
-      <th scope="col" class="h4">Waiter Name</th>
-      <th scope="col" class="h4">Days Selected</th>
-      </tr>
-  </thead>
-  <tbody>
-       {{#each allShifts}}
-    
-      <td class="h4"><a href="#" class="text-reset text-decoration-none">{{this.waiter_name}}</a></td>
-    
-    
-     <td class="h4">{{this.days_selected}}</td>
-    
-     {{/each}}
-  </tbody>
-</table>
+
+                    <table class="table table-hover text-light">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="h4">Waiter Name</th>
+                                <th scope="col" class="h4">Days Selected</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each allShifts}}
+
+                            <td class="h4"><a href="/waiters/:{{this.waiter_name}}"
+                                    class="text-reset text-decoration-none">{{this.waiter_name}}</a></td>
+
+
+                            <td class="h4">{{this.days_selected}}</td>
+
+                            {{/each}}
+                        </tbody>
+                    </table>
 
                 </div>
-               
+
                 <div class="col-12">
                     <form action="/backtologin" method="GET">
                         <div class="col-2 mt-5">
@@ -53,14 +54,7 @@
 
                 </div>
             </div>
-
-
-
-
-
-
         </div>
-
 </body>
 
 </html>
