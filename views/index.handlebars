@@ -15,6 +15,7 @@
                 <h3></h3>
             </div>
             <div class="col-9 text-center display-5 w-100 p-3 center-div">
+                 
                 <div class="row">
                     <h2 class="col-12 titleHeader">Waiter Availability</h2>
                 </div>
@@ -29,14 +30,16 @@
                         </div>
                         {{/each}}
                         <br>
-                        <button type="submit" class="btn btn-light btn">submit</button>
-
 
                     </form>
 
                 </div>
 
             </div>
+
+            <form action="/submitShifts" method="GET">
+            <button type="submit" class="btn btn-light btn" name="submitShifts">submit</button>
+            </form>
 
             <div class="col-1">
                 {{#if storeDetails}}

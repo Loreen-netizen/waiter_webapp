@@ -68,36 +68,44 @@ app.get("/backtologin", async function(req, res) {
     })
 })
 
+app.get("/submitShifts", async function(req, res) {
+    req.flash('info', 'success!! shifts submitted')
+    res.render("successRoute", {
+
+    })
+})
+
 app.post("/waiters/:username", async function(req, res) {
+    let daysObj = await waiterFacFun.daysObject();
 
     let create = await req.body.createAccount;
     let signIn = await req.body.sign;
     let name = await req.body.userName;
-    console.log({ name });
+    // console.log({ name });
     let userPassword = await req.body.userPassword;
-    console.log({ userPassword })
+    // console.log({ userPassword })
     let verify = await waiterFacFun.verifyUser(name, userPassword)
 
-    console.log({ signIn });
-    console.log({ verify });
+    // console.log({ signIn });
+    // console.log({ verify });
 
     try {
 
         if (create) {
-            console.log("createSelected");
+            // console.log("createSelected");
             let storeDetails = await waiterFacFun.storeDetails(name, userPassword);
 
             req.flash('info', 'success!! account created')
-            res.render("index", {
-                storeDetails
+            res.render("successRoute", {
+                storeDetails,
             })
-        } else if ((signIn) && (verify >= 1)) {
+        } else if ((signIn) && (verify != [])) {
             console.log("signinselected")
             let signInUser = await waiterFacFun.signInUser(name);
             req.flash('info', 'log in successful!!')
 
-            res.render("index", {
-                signInUser
+            res.render("successRoute", {
+                signInUser,
             })
         } else if ((!signIn) && (!create)) {
             res.render("loginRoute")

@@ -20,9 +20,16 @@
                 </div>
 
 
-                {{#if messages.info}}
-                <div class="alert alert-info h3" role="alert">{{messages.info}}</div>
-                {{/if}}
+               <div class="col-12 error py-0 mx-0">
+                    {{#if messages.info}}
+                    <div class="alert alert-success alert-dismissible">
+
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p class="text-center">{{messages.info}} </p>
+                    </div>
+
+                    {{/if}}
+                </div>
 
             </div>
            
@@ -36,7 +43,7 @@
         <div class="row justify-content-center">
                 <form action="/back" method="GET">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-light btn">back</button>
+                    <button type="submit" class="btn btn-light btn">select shifts</button>
 
                 </div>
             </form>
