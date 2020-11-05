@@ -51,13 +51,19 @@ let waiterFacFun = function(pool) {
 
     }
 
+    let getAllShifts = async function() {
+        let allShiftsQuery = await pool.query(`SELECT * FROM shifts`);
+        return allShiftsQuery.rows;
+    }
+
     return {
         daysObject,
         storeDetails,
         verifyUser,
         getUserShifts,
         signInUser,
-        storeShifts
+        storeShifts,
+        getAllShifts
     }
 }
 

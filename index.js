@@ -111,36 +111,16 @@ app.post("/waiters/:username", async function(req, res) {
         console.log(error)
     }
 });
+
+app.get("/days", async function(req, res) {
+    let allShifts = await waiterFacFun.getAllShifts();
+    console.log({ allShifts })
+    res.render("days", {
+        allShifts
+    })
+})
 let PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function() {
-        console.log("App starting on port", PORT)
-    })
-    //     if (storeDays === "null values") {
-    //         req.flash('info', 'SUCCESSFULLY added shifts!!')
-    //     }
-    //     res.render("successRoute")
-    // } catch (error) {
-    //     console.log(error)
-    // }
-
-// })
-// app.post("daysObject", async function(req, res) {
-//     let daysObj = await waiterFacFun.daysObject();
-//     res.render("index", {
-//         daysObj
-//     })
-
-// });
-// SUCCESS MESSAGE
-// if (storeDays === "null values") {
-//     req.flash('info', 'SUCCESSFULLY added shifts!!')
-// }
-// res.render("successRoute")
-// } catch (error) {
-// console.log(error)
-// }
-
-// })
-
-// SUCCESS MESSAGE
+    console.log("App starting on port", PORT)
+})
