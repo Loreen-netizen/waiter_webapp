@@ -31,17 +31,21 @@ let waiterFacFun = function(pool) {
 
     };
 
+    let getUserShifts = async function(userName) {
+        let getShiftsQuery = await pool.query(`SELECT (waiter_name,days_selected) FROM shifts WHERE waiter_name = ($1)`, [userName]);
+        return (getShiftsQuery.rows)
+    }
+
     let signInUser = async function(userName) {
-        let signInUserQuery = await pool.query(`SELECT shifts * FROM shifts WHERE waiter_name = ($1)`, [userName]);
-        console.log({ signInUserQuery })
+        let signInUserQuery = await pool.query(`SELECT * FROM shifts WHERE waiter_name = ($1)`, [userName]);
+        return (signInUserQuery.rows)
     }
 
     let storeShifts = async function(waiterName, daysSelected) {
         if ((!waiterName) && (!daysSelected)) {
             console.log("null values")
-            return "null values"
         } else {
-            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_name, days_selected) VALUES ($1, $2)' [waiterName], [daysSelected]);
+            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_name, days_selected) VALUES ($1, $2)', [waiterName, daysSelected]);
             storeShiftsQuery;
         }
 
@@ -51,6 +55,7 @@ let waiterFacFun = function(pool) {
         daysObject,
         storeDetails,
         verifyUser,
+        getUserShifts,
         signInUser,
         storeShifts
     }

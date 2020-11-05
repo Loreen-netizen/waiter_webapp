@@ -10,7 +10,8 @@ let pool = new Pool({
 
 describe("waiterFacFun", async function() {
     beforeEach(async function() {
-        await pool.query(`delete from users`)
+        await pool.query(`delete from users`);
+        await pool.query(`delete from shifts`)
     })
 
     it("should return days as an object from the database", async function() {
@@ -56,6 +57,22 @@ describe("waiterFacFun", async function() {
         let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
         //assert
         assert.deepEqual([{ "row": "(Lionel,l223)" }], verifyInfoQuery);
+
+    });
+
+    it("should be able to store all shifts selected by a user in the database", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+        // let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
+        let storeUserDetails = await waiterFacFun.storeDetails('Titi', '90k');
+        let storeUserShifts = await waiterFacFun.storeShifts('Titi', 'Tuesday')
+
+        // storeInfo;
+
+        let getShifts = await waiterFacFun.getUserShifts('Titi');
+        //assert
+        assert.deepEqual([{ "row": "(Titi,Tuesday)" }], getShifts);
 
     });
 
