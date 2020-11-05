@@ -41,9 +41,21 @@ describe("waiterFacFun", async function() {
 
         let verifyInfoQuery = await waiterFacFun.verifyUser('mimi', 'x34');
         //assert
-        assert.deepEqual([
-            { "row": "(mimi,x34)" }
-        ], verifyInfoQuery);
+        assert.deepEqual([{ "row": "(mimi,x34)" }], verifyInfoQuery);
+
+    });
+
+    it("should be able to check if a user exists in the database", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+        let storeInfo = await waiterFacFun.storeDetails('Lionel', 'l223');
+
+        // storeInfo;
+
+        let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
+        //assert
+        assert.deepEqual([{ "row": "(Lionel,l223)" }], verifyInfoQuery);
 
     });
 
