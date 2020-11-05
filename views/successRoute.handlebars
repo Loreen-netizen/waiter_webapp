@@ -27,6 +27,32 @@
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <p class="text-center">{{messages.info}} </p>
                     </div>
+                    <div class="row justify-content-center">
+                <form action="/back" method="GET">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-light btn">select shifts</button>
+
+                </div>
+            </form>
+           </div>
+
+
+                    {{/if}}
+                     {{#if messages.shifts}}
+                    <div class="alert alert-success alert-dismissible">
+
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p class="text-center">{{messages.shifts}} </p>
+                    </div>
+                    <div class="row justify-content-center">
+                <form action="/back" method="GET">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-light btn">back</button>
+
+                </div>
+            </form>
+           </div>
+
 
                     {{/if}}
                 </div>
@@ -40,15 +66,7 @@
 
 
         </div>
-        <div class="row justify-content-center">
-                <form action="/back" method="GET">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-light btn">select shifts</button>
-
-                </div>
-            </form>
-           </div>
-
+        
 
     </div>
 

@@ -34,14 +34,25 @@
                     </form>
 
                 </div>
-
-            </div>
-
-            <form action="/submitShifts" method="GET">
-            <button type="submit" class="btn btn-light btn" name="submitShifts">submit</button>
+<div class="col-12">
+    <form action="/submitShifts" method="GET">
+            <button type="submit" class="btn btn-light btn mt-3 " name="submitShifts">submit shifts</button>
             </form>
 
-            <div class="col-1">
+</div>
+
+<div class="col-12">
+    <form action="/backtologin" method="GET">
+                <div class="col-2 mt-5">
+                    <button type="submit" class="btn btn-light btn">back</button>
+
+                </div>
+            </form>
+
+</div>
+            </div>
+
+            {{!-- <div class="col-1">
                 {{#if storeDetails}}
 
                 {{storeDetails}}
@@ -50,19 +61,14 @@
                 {{signIn}}
 
                 {{/if}}
-            </div>
+            </div> --}}
 
 
 
         </div>
 
         <div class="row">
-            <form action="/backtologin" method="GET">
-                <div class="col-12 pl-5 mx-5 my-3">
-                    <button type="submit" class="btn btn-light btn">back</button>
-
-                </div>
-            </form>
+                        
         </div>
 
 

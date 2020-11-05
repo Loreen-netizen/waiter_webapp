@@ -62,14 +62,11 @@ app.get("/back", async function(req, res) {
 })
 
 app.get("/backtologin", async function(req, res) {
-    let daysObj = await waiterFacFun.daysObject();
-    res.render("loginRoute", {
-        daysObj
-    })
+    res.render("loginRoute", {})
 })
 
 app.get("/submitShifts", async function(req, res) {
-    req.flash('info', 'success!! shifts submitted')
+    req.flash('shifts', 'success!! shifts submitted')
     res.render("successRoute", {
 
     })
