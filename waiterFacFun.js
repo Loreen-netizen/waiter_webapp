@@ -19,7 +19,7 @@ let waiterFacFun = function(pool) {
 
     let verifyUser = async function(userName, userPassword) {
         try {
-            var verifyUserQuery = await pool.query(`SELECT * FROM users WHERE user_name=($1) AND user_password=($2)`, [userName, userPassword]);
+            var verifyUserQuery = await pool.query(`SELECT (user_name, user_password) FROM users WHERE user_name=($1) AND user_password=($2)`, [userName, userPassword]);
 
             if (!verifyUserQuery) {
                 return null

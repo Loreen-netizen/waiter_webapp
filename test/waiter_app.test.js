@@ -41,11 +41,9 @@ describe("waiterFacFun", async function() {
 
         let verifyInfoQuery = await waiterFacFun.verifyUser('mimi', 'x34');
         //assert
-        assert.deepEqual([{
-            user_id: 1,
-            user_name: 'mimi',
-            user_password: 'x34'
-        }], verifyInfoQuery);
+        assert.deepEqual([
+            { "row": "(mimi,x34)" }
+        ], verifyInfoQuery);
 
     });
 
