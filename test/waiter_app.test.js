@@ -76,6 +76,22 @@ describe("waiterFacFun", async function() {
 
     });
 
+    it("should be able to return all shifts selected by a user as an object", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+        // let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
+        let storeUserDetails = await waiterFacFun.storeDetails('Kai', 'mnnn');
+        let storeUserShifts = await waiterFacFun.storeShifts('Kai', 'Thursday')
+
+        // storeInfo;
+
+        let signInUser = await waiterFacFun.signInUser('Kai');
+        //assert
+        assert.deepEqual([{ "row": "(Kai,Thursday)" }], signInUser);
+
+    });
+
 
     after(async function() {
         await pool.end();

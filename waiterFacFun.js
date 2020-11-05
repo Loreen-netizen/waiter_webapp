@@ -37,7 +37,7 @@ let waiterFacFun = function(pool) {
     }
 
     let signInUser = async function(userName) {
-        let signInUserQuery = await pool.query(`SELECT * FROM shifts WHERE waiter_name = ($1)`, [userName]);
+        let signInUserQuery = await pool.query(`SELECT (waiter_name,days_selected) FROM shifts WHERE waiter_name = ($1)`, [userName]);
         return (signInUserQuery.rows)
     }
 
