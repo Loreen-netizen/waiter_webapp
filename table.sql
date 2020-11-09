@@ -11,12 +11,9 @@ name text not null
 );
 
 CREATE TABLE shifts(
-id serial primary key,
 waiter_id int not null,
 day_id int not null,
-name text not null,
-FOREIGN KEY(waiter_id) REFERENCES waiters(id),
-FOREIGN KEY(day_id) REFERENCES days(id)
+name text not null
 );
 
 

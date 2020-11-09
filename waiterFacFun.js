@@ -24,25 +24,25 @@ let waiterFacFun = function(pool) {
     };
     let getUserShifts = async function(userName) {
         let getShiftsQuery = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE name = ($1)`, [userName]);
-        return (getShiftsQuery.rows)
+        return getShiftsQuery.rows;
     }
     let getNameId = async function(waiterName) {
         let getNameIdQuery = await pool.query(`SELECT (id) FROM waiters WHERE name = ($1)`, [waiterName]);
-        console.log(getNameIdQuery.rows)
-        return getNameIdQuery.rows
+        console.log(getNameIdQuery.rows[0].id);
+        return getNameIdQuery.rows[0].id;
     }
 
     let getDayId = async function(daysSelected) {
         let getDayIdQuery = await pool.query(`SELECT (id) FROM days WHERE name = ($1)`, [daysSelected]);
-        return getDayIdQuery.rows
+        return getDayIdQuery.rows[0].id
     }
     let storeShifts = async function(waiterName, daysSelected) {
-        let waiterId = getNameId(waiterName);
-        let dayId = getDayId(daysSelected);
+        let waiterId = await getNameId(waiterName);
+        let dayId = await getDayId(daysSelected);
         if ((!waiterName) && (!daysSelected)) {
             console.log("null values")
         } else {
-            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
+            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id, name) VALUES ($1, $2, $3)', [waiterId, dayId, waiterName]);
             storeShiftsQuery;
         }
     }
