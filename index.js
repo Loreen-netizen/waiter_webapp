@@ -36,10 +36,8 @@ app.get("/addFlash", function(req, res) {
         console.log(error)
     }
 });
+
 app.get("/", async function(req, res) {
-    res.render("loginRoute")
-});
-app.get("/waiters/:username", async function(req, res) {
     let daysObj = await waiterFacFun.daysObject();
     res.render("index", {
         daysObj
@@ -51,55 +49,54 @@ app.get("/back", async function(req, res) {
         daysObj
     })
 });
-app.get("/backtologin", async function(req, res) {
-    res.render("loginRoute", {})
-})
 
-app.get("/submitShifts", async function(req, res) {
+app.post("/waiters/:username", async function(req, res) {
     req.flash('shifts', 'success!! shifts submitted')
+    let name = await req.params.username;
+    console.log({ name })
+    let getShifts = await waiterFacFun.getUserShifts(name);
+    console.log({
+        getShifts
+    });
+    let daysSelected = req.body.selectedDays;
+
+    let storeUserShifts = await waiterFacFun.storeShifts(name, daysSelected)
+    console.log(selectedDays);
     res.render("successRoute", {
+        getShifts,
+        storeUserShifts
 
     })
 });
-app.post("/waiters/:username", async function(req, res) {
+app.get("/waiters/:username", async function(req, res) {
+    let name = await req.params.username;
+
     let daysObj = await waiterFacFun.daysObject();
 
-    let create = await req.body.createAccount;
-    let signIn = await req.body.sign;
-    let name = await req.body.userName;
-    let userPassword = await req.body.userPassword;
-    let verify = await waiterFacFun.verifyUser(name, userPassword);
-    let waiterShifts = await waiterFacFun.getUserShifts(name)
+    let data = {
+        // verify: await waiterFacFun.verifyUser(name),
+        // waiterShifts: await waiterFacFun.getUserShifts(name),
+        storeUserDetails: await waiterFacFun.storeDetails(name),
+    };
     try {
-        if (create) {
-            let storeDetails = await waiterFacFun.storeDetails(name, userPassword);
-            req.flash('info', 'success!! account created')
-            res.render("successRoute", {
-                storeDetails,
-            })
-        } else if ((signIn) && (verify != [])) {
-            console.log("signinselected")
-            let signInUser = await waiterFacFun.signInUser(name);
-            req.flash('info', 'log in successful!!')
-            res.render("successRoute", {
-                waiterShifts,
-                signInUser
-            })
-        } else if ((!signIn) && (!create)) {
-            res.render("loginRoute")
-        }
+
+        res.render("index", {
+            waiterShifts: data.storeUserDetails,
+            daysObj
+        })
     } catch (error) {
         console.log(error)
     }
 });
 app.get("/days", async function(req, res) {
     let allShifts = await waiterFacFun.getAllShifts();
-    console.log({ allShifts })
+    console.log({ allShifts });
     res.render("days", {
         allShifts
     })
-})
-let PORT = process.env.PORT || 3000;
+});
+
+let PORT = process.env.PORT || 3009
 app.listen(PORT, function() {
     console.log("App starting on port", PORT)
 })

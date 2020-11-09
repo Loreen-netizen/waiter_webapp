@@ -1,41 +1,43 @@
-CREATE TABLE days_table(
-    days VARCHAR (100),
-    id serial primary key
 
+CREATE TABLE days(
+name text not null,
+id serial primary key
+);
+
+
+CREATE TABLE waiters(
+id serial primary key,
+name text not null
 );
 
 CREATE TABLE shifts(
-    waiter_name VARCHAR (100),
-    waiter_id int,
-    days_selected VARCHAR (100)
-    FOREIGN KEY(waiter_id) REFERENCES users(user_id)
-
-
+id serial primary key,
+waiter_id int not null,
+day_id int not null,
+name text not null,
+FOREIGN KEY(waiter_id) REFERENCES waiters(id),
+FOREIGN KEY(day_id) REFERENCES days(id)
 );
 
-CREATE TABLE users(
-    user_name VARCHAR (100),
-    user_password TEXT,
-    user_id serial primary key
-);
 
-INSERT INTO days_table 
-(days) VALUES ('Monday');
 
-INSERT INTO days_table 
-(days) VALUES ('Tuesday');
+INSERT INTO days 
+(name) VALUES ('Monday');
 
-INSERT INTO days_table 
-(days) VALUES ('Wednesday');
+INSERT INTO days 
+(name) VALUES ('Tuesday');
 
-INSERT INTO days_table 
-(days) VALUES ('Thursday');
+INSERT INTO days 
+(name) VALUES ('Wednesday');
 
-INSERT INTO days_table 
-(days) VALUES ('Friday');
+INSERT INTO days 
+(name) VALUES ('Thursday');
 
-INSERT INTO days_table 
-(days) VALUES ('Saturday');
+INSERT INTO days 
+(name) VALUES ('Friday');
 
-INSERT INTO days_table 
-(days) VALUES ('Sunday');
+INSERT INTO days 
+(name) VALUES ('Saturday');
+
+INSERT INTO days 
+(name) VALUES ('Sunday');

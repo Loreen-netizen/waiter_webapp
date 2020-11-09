@@ -20,7 +20,7 @@
                 </div>
 
 
-               <div class="col-12 error py-0 mx-0">
+                <div class="col-12 error py-0 mx-0">
                     {{#if messages.info}}
                     <div class="alert alert-success alert-dismissible">
 
@@ -28,17 +28,30 @@
                         <p class="text-center">{{messages.info}} </p>
                     </div>
                     <div class="row justify-content-center">
-                <form action="/back" method="GET">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-light btn">select shifts</button>
+                        <form action="/back" method="GET">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-light btn">select shifts</button>
 
-                </div>
-            </form>
-           </div>
-
-
+                            </div>
+                        </form>
+                    </div>
                     {{/if}}
-                     {{#if messages.shifts}}
+                    {{#if messages.userExists}}
+                    <div class="alert alert-danger alert-dismissible">
+
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p class="text-center">{{messages.userExists}} </p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <form action="/back" method="GET">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-light btn">create valid account</button>
+
+                            </div>
+                        </form>
+                    </div>
+                    {{/if}}
+                    {{#if messages.shifts}}
                     <div class="alert alert-success alert-dismissible my-5">
 
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -47,45 +60,41 @@
                     <div class="row justify-content-center">
 
                         <table class="table table-hover text-light my-3">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="h4">Waiter Name</th>
-                                <th scope="col" class="h4">Days Selected</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each waiterShifts}}
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="h4">Waiter Name</th>
+                                    <th scope="col" class="h4">Days Selected</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each getShifts}}
 
-                            <td class="h4"><a href="/waiters/:{{this.waiter_name}}"
-                                    class="text-reset text-decoration-none">{{this.waiter_name}}</a></td>
+                                <td class="h4"><a href="/waiters/:{{this.waiter_name}}"
+                                        class="text-reset text-decoration-none">{{this.waiter_name}}</a></td>
 
 
-                            <td class="h4">{{this.days_selected}}</td>
+                                <td class="h4">{{this.days_selected}}</td>
 
-                            {{/each}}
-                        </tbody>
-                    </table>
+                                {{/each}}
+                            </tbody>
+                        </table>
 
-                <form action="/back" method="GET">
-                <div class="col-12 my-5">
-                    <button type="submit" class="btn btn-light btn">back</button>
+                        <form action="/back" method="GET">
+                            <div class="col-12 my-5">
+                                <button type="submit" class="btn btn-light btn">back</button>
 
-                </div>
-            </form>
-           </div>
+                            </div>
+                        </form>
+                    </div>
 
 
                     {{/if}}
 
 
                 </div>
-                  {{!-- <div class="row py-5 px-5"> --}}
-
-                    
-                {{!-- </div> --}}
 
             </div>
-           
+
             <div class="col-3">
                 <h3></h3>
             </div>
@@ -93,7 +102,7 @@
 
 
         </div>
-        
+
 
     </div>
 

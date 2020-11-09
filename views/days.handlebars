@@ -25,18 +25,18 @@
                     <table class="table table-hover text-light">
                         <thead>
                             <tr>
-                                <th scope="col" class="h4">Waiter Name</th>
-                                <th scope="col" class="h4">Days Selected</th>
+                                <th scope="col" class="h4">Day</th>
+                                <th scope="col" class="h4">Waiters Working</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#each allShifts}}
 
-                            <td class="h4"><a href="/waiters/:{{this.waiter_name}}"
-                                    class="text-reset text-decoration-none">{{this.waiter_name}}</a></td>
+                            <td class="h4"><a href="#"
+                                    class="text-reset text-decoration-none">{{this.day}}</a></td>
 
 
-                            <td class="h4">{{this.days_selected}}</td>
+                            <td class="h4">{{this.day}}</td>
 
                             {{/each}}
                         </tbody>

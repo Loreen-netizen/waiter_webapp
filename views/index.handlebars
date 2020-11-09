@@ -9,6 +9,8 @@
 
 <body>
     <div class="container mainDiv justify-content-center">
+      
+      {{!-- <form action="/waiters/:username" method="GET"> --}}
         <div class="row">
 
             <div class="col-1">
@@ -21,12 +23,12 @@
                 </div>
 
                 <div class="row py-5 px-5">
-                    <form action="/waiters/:username" method="POST">
+                    <form action="/waiters/:username" method="GET">
                         {{#each daysObj}}
                         <div class="form-check form-check-inline py-5">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{this.days}}">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{this.name}}">
                             <label class="form-check-label" for="inlineCheckbox1"
-                                name="selectedDays">{{this.days}}</label>
+                                name="selectedDays">{{this.name}}</label>
                         </div>
                         {{/each}}
                         <br>
@@ -35,7 +37,7 @@
 
                 </div>
 <div class="col-12">
-    <form action="/submitShifts" method="GET">
+    <form action="/waiters/:username" method="POST">
             <button type="submit" class="btn btn-light btn mt-3 " name="submitShifts">submit shifts</button>
             </form>
 
@@ -66,7 +68,7 @@
 
 
         </div>
-
+{{!-- </form> --}}
         <div class="row">
                         
         </div>

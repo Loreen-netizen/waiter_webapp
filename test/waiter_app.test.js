@@ -8,7 +8,7 @@ let pool = new Pool({
 });
 describe("waiterFacFun", async function() {
     beforeEach(async function() {
-        await pool.query(`delete from users`);
+        await pool.query(`delete from waiters`);
         await pool.query(`delete from shifts`)
     })
     it("should return days as an object from the database", async function() {
@@ -18,26 +18,28 @@ describe("waiterFacFun", async function() {
         let getDays = await waiterFacFun.daysObject()
             //assert
         assert.deepEqual([
-            { days: 'Monday' },
-            { days: 'Tuesday' },
-            { days: 'Wednesday' },
-            { days: 'Thursday' },
-            { days: 'Friday' },
-            { days: 'Saturday' },
-            { days: 'Sunday' }
+            { name: 'Monday' },
+            { name: 'Tuesday' },
+            { name: 'Wednesday' },
+            { name: 'Thursday' },
+            { name: 'Friday' },
+            { name: 'Saturday' },
+            { name: 'Sunday' }
         ], getDays);
     });
     it("should be able to store values in the database", async function() {
         //assemble
         var waiterFacFun = await WaiterFacFun(pool);
         //act
-        let storeInfo = await waiterFacFun.storeDetails('mimi', 'x34');
+        let storeInfo = await waiterFacFun.storeDetails('mimi');
 
         // storeInfo;
 
-        let verifyInfoQuery = await waiterFacFun.verifyUser('mimi', 'x34');
+        let verifyInfoQuery = await waiterFacFun.verifyUser('mimi');
         //assert
-        assert.deepEqual([{ "row": "(mimi,x34)" }], verifyInfoQuery);
+        assert.deepEqual([{
+            name: 'mimi'
+        }], verifyInfoQuery);
 
     });
 
@@ -45,13 +47,15 @@ describe("waiterFacFun", async function() {
         //assemble
         var waiterFacFun = await WaiterFacFun(pool);
         //act
-        let storeInfo = await waiterFacFun.storeDetails('Lionel', 'l223');
+        let storeInfo = await waiterFacFun.storeDetails('Lionel');
 
         // storeInfo;
 
-        let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
+        let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel');
         //assert
-        assert.deepEqual([{ "row": "(Lionel,l223)" }], verifyInfoQuery);
+        assert.deepEqual([{
+            'name': 'Lionel'
+        }], verifyInfoQuery);
 
     });
 
@@ -60,7 +64,7 @@ describe("waiterFacFun", async function() {
         var waiterFacFun = await WaiterFacFun(pool);
         //act
         // let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
-        let storeUserDetails = await waiterFacFun.storeDetails('Titi', '90k');
+        let storeUserDetails = await waiterFacFun.storeDetails('Titi');
         let storeUserShifts = await waiterFacFun.storeShifts('Titi', 'Tuesday')
 
         // storeInfo;
@@ -75,11 +79,11 @@ describe("waiterFacFun", async function() {
         //assemble
         var waiterFacFun = await WaiterFacFun(pool);
         //act
-        let storeUserDetails = await waiterFacFun.storeDetails('Kai', 'mnnn');
+        let storeUserDetails = await waiterFacFun.storeDetails('Kai');
         let storeUserShifts = await waiterFacFun.storeShifts('Kai', 'Thursday')
-        let signInUser = await waiterFacFun.signInUser('Kai');
+        let getShifts = await waiterFacFun.getUserShifts('Kai');
         //assert
-        assert.deepEqual([{ "row": "(Kai,Thursday)" }], signInUser);
+        assert.deepEqual([{ "row": "(Kai,Thursday)" }], getShifts);
     });
     after(async function() {
         await pool.end();
