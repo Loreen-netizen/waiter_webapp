@@ -62,20 +62,20 @@
                         <table class="table table-hover text-light my-3">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="h4">Waiter Name</th>
+                                    <th scope="col" class="h4">Waiter</th>
                                     <th scope="col" class="h4">Days Selected</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#each getShifts}}
+                                {{!-- {{#each shifts.day}} --}}
 
-                                <td class="h4"><a href="/waiters/:{{this.waiter_name}}"
-                                        class="text-reset text-decoration-none">{{this.waiter_name}}</a></td>
+                                <td class="h4"><a href="#"
+                                    class="text-reset text-decoration-none">{{name}}</a></td>
 
 
-                                <td class="h4">{{this.days_selected}}</td>
+                            <td class="h4">{{daysSelected}}</td>
 
-                                {{/each}}
+                                {{!-- {{/each}} --}}
                             </tbody>
                         </table>
 

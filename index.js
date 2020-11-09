@@ -52,29 +52,35 @@ app.get("/back", async function(req, res) {
 
 app.post("/waiters/:username", async function(req, res) {
     req.flash('shifts', 'success!! shifts submitted')
-    let name = await req.params.username;
+    let name = req.params.username;
     console.log({ name })
     let getShifts = await waiterFacFun.getUserShifts(name);
     console.log({
         getShifts
     });
     let daysSelected = req.body.selectedDays;
+    console.log(daysSelected);
+    console.log({ daysSelected });
 
     let storeUserShifts = await waiterFacFun.storeShifts(name, daysSelected)
-    console.log(selectedDays);
+    console.log(daysSelected);
+    // let shifts = {
+    //     day: await daysSelected,
+    //     name: await name
+    // }
     res.render("successRoute", {
-        getShifts,
+        name,
+        daysSelected,
         storeUserShifts
 
     })
 });
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
-
     let daysObj = await waiterFacFun.daysObject();
 
     let data = {
-        // verify: await waiterFacFun.verifyUser(name),
+        verify: await waiterFacFun.verifyUser(name),
         // waiterShifts: await waiterFacFun.getUserShifts(name),
         storeUserDetails: await waiterFacFun.storeDetails(name),
     };
@@ -82,7 +88,8 @@ app.get("/waiters/:username", async function(req, res) {
 
         res.render("index", {
             waiterShifts: data.storeUserDetails,
-            daysObj
+            daysObj,
+            name
         })
     } catch (error) {
         console.log(error)
@@ -92,11 +99,12 @@ app.get("/days", async function(req, res) {
     let allShifts = await waiterFacFun.getAllShifts();
     console.log({ allShifts });
     res.render("days", {
-        allShifts
+        allShifts,
+        name
     })
 });
 
-let PORT = process.env.PORT || 3009
+let PORT = process.env.PORT || 3000
 app.listen(PORT, function() {
     console.log("App starting on port", PORT)
 })

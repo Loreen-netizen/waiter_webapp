@@ -14,10 +14,7 @@ let waiterFacFun = function(pool) {
     let verifyUser = async function(userName) {
         try {
             var verifyUserQuery = await pool.query(`SELECT (name) FROM waiters WHERE name=($1)`, [userName]);
-
-            if (!verifyUserQuery) {
-                return null
-            } else { return verifyUserQuery.rows };
+            return verifyUserQuery.rows
         } catch (error) {
             console.log(error)
         }
@@ -34,17 +31,22 @@ let waiterFacFun = function(pool) {
 
     let getDayId = async function(daysSelected) {
         let getDayIdQuery = await pool.query(`SELECT (id) FROM days WHERE name = ($1)`, [daysSelected]);
-        return getDayIdQuery.rows[0].id
+        console.log(getDayIdQuery.rows[0].id);
+        return getDayIdQuery.rows[0].id;
     }
     let storeShifts = async function(waiterName, daysSelected) {
-        let waiterId = await getNameId(waiterName);
-        let dayId = await getDayId(daysSelected);
-        if ((!waiterName) && (!daysSelected)) {
-            console.log("null values")
-        } else {
+        if (!verifyUser()) {
             let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id, name) VALUES ($1, $2, $3)', [waiterId, dayId, waiterName]);
             storeShiftsQuery;
         }
+        // console.log(daysSelected);
+        // let waiterId = await getNameId(waiterName);
+        // let dayId = await getDayId(daysSelected);
+        // if ((!waiterName) && (!daysSelected)) {
+        //     console.log("null values")
+        // } else {
+
+
     }
     let getAllShifts = async function() {
         let allShiftsQuery = await pool.query(`SELECT * FROM shifts`);
