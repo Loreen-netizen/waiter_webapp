@@ -86,8 +86,7 @@ app.get("/days", async function(req, res) {
     let allShifts = await waiterFacFun.getAllShifts();
     console.log({ allShifts });
     res.render("days", {
-        allShifts,
-        name
+        allShifts
     })
 });
 
