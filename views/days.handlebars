@@ -23,23 +23,23 @@
                 <div class="row py-5 px-5">
 
                     <table class="table table-hover text-light">
-                        <thead>
+                        {{!-- <thead> --}}
                             <tr>
                                 <th scope="col" class="h4">Day</th>
                                 <th scope="col" class="h4">Waiters Working</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                        {{!-- </thead> --}}
+                        {{!-- <tbody> --}}
                             {{#each allShifts}}
-
-                            <td class="h4"><a href="#"
+<tr><td class="h4"><a href="#"
                                     class="text-reset text-decoration-none">{{this.day}}</a></td>
 
+                            
 
-                            <td class="h4">{{this.day}}</td>
+                            <td class="h4">{{this.name}}</td></tr>
 
                             {{/each}}
-                        </tbody>
+                        {{!-- </tbody> --}}
                     </table>
 
                 </div>

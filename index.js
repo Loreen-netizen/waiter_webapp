@@ -65,6 +65,7 @@ app.post("/waiters/:username", async function(req, res) {
 });
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
+    console.log({ name })
     let daysObj = await waiterFacFun.daysObject();
 
     let data = {

@@ -7,7 +7,7 @@ let waiterFacFun = function(pool) {
     let storeDetails = async function(userName) {
         let isUser = await verifyUser();
         console.log(isUser)
-        if (isUser === []) {
+        if (isUser != 1) {
 
             let storeDetailsQuery = await pool.query('INSERT INTO waiters (name) VALUES ($1)', [userName]);
             storeDetailsQuery;
@@ -41,15 +41,22 @@ let waiterFacFun = function(pool) {
     }
 
     let storeShifts = async function(waiterName, daysSelected) {
-        let isUser = verifyUser();
-        if (isUser === []) {
+        let isUser = await verifyUser();
+        console.log(
+            isUser
+        );
+
+        if (isUser != 1) {
             let waiterId = await getNameId(waiterName);
             let dayId = await getDayId(daysSelected);
-            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id, name) VALUES ($1, $2, $3)', [waiterId, dayId, waiterName]);
+            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id, name, day) VALUES ($1, $2, $3,$4)', [waiterId, dayId, waiterName, daysSelected]);
             storeShiftsQuery;
-        } else if ((!waiterName) && (!daysSelected)) {
-            console.log("choose waiter && days")
+        } else {
+            console.log("usersaved ")
         }
+        // if ((!waiterName) && (!daysSelected)) {
+        //     console.log("choose waiter && days")
+        // }
 
 
 

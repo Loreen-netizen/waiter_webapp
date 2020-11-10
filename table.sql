@@ -13,7 +13,8 @@ name text not null
 CREATE TABLE shifts(
 waiter_id int not null,
 day_id int not null,
-name text not null
+name text not null,
+day text not null
 );
 
 
