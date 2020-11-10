@@ -43,35 +43,23 @@ app.get("/", async function(req, res) {
         daysObj
     })
 });
-app.get("/back", async function(req, res) {
-    let daysObj = await waiterFacFun.daysObject();
-    res.render("index", {
-        daysObj
-    })
-});
+// app.get("/back", async function(req, res) {
+//     let daysObj = await waiterFacFun.daysObject();
+//     res.render("index", {
+//         daysObj
+//     })
+// });
 
 app.post("/waiters/:username", async function(req, res) {
     req.flash('shifts', 'success!! shifts submitted')
     let name = req.params.username;
-    console.log({ name })
     let getShifts = await waiterFacFun.getUserShifts(name);
-    console.log({
-        getShifts
-    });
     let daysSelected = req.body.selectedDays;
-    console.log(daysSelected);
-    console.log({ daysSelected });
-
     let storeUserShifts = await waiterFacFun.storeShifts(name, daysSelected)
-    console.log(daysSelected);
-    // let shifts = {
-    //     day: await daysSelected,
-    //     name: await name
-    // }
     res.render("successRoute", {
         name,
         daysSelected,
-        storeUserShifts
+        storeUserShifts,
 
     })
 });
@@ -81,7 +69,6 @@ app.get("/waiters/:username", async function(req, res) {
 
     let data = {
         verify: await waiterFacFun.verifyUser(name),
-        // waiterShifts: await waiterFacFun.getUserShifts(name),
         storeUserDetails: await waiterFacFun.storeDetails(name),
     };
     try {

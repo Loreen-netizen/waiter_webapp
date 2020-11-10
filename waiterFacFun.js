@@ -5,15 +5,20 @@ let waiterFacFun = function(pool) {
         return daysObjectQuery.rows;
     }
     let storeDetails = async function(userName) {
+        let isUser = await verifyUser();
+        console.log(isUser)
+        if (isUser === []) {
 
-        let storeDetailsQuery = await pool.query('INSERT INTO waiters (name) VALUES ($1)', [userName]);
-        storeDetailsQuery;
-        console.log("stored")
+            let storeDetailsQuery = await pool.query('INSERT INTO waiters (name) VALUES ($1)', [userName]);
+            storeDetailsQuery;
+            console.log("stored")
 
+        }
     }
     let verifyUser = async function(userName) {
         try {
-            var verifyUserQuery = await pool.query(`SELECT (name) FROM waiters WHERE name=($1)`, [userName]);
+            var verifyUserQuery = await pool.query(`SELECT name FROM waiters WHERE name=($1)`, [userName]);
+            console.log(verifyUserQuery.rows)
             return verifyUserQuery.rows
         } catch (error) {
             console.log(error)
@@ -34,17 +39,18 @@ let waiterFacFun = function(pool) {
         console.log(getDayIdQuery.rows[0].id);
         return getDayIdQuery.rows[0].id;
     }
+
     let storeShifts = async function(waiterName, daysSelected) {
-        if (!verifyUser()) {
+        let isUser = verifyUser();
+        if (isUser === []) {
+            let waiterId = await getNameId(waiterName);
+            let dayId = await getDayId(daysSelected);
             let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id, name) VALUES ($1, $2, $3)', [waiterId, dayId, waiterName]);
             storeShiftsQuery;
+        } else if ((!waiterName) && (!daysSelected)) {
+            console.log("choose waiter && days")
         }
-        // console.log(daysSelected);
-        // let waiterId = await getNameId(waiterName);
-        // let dayId = await getDayId(daysSelected);
-        // if ((!waiterName) && (!daysSelected)) {
-        //     console.log("null values")
-        // } else {
+
 
 
     }
