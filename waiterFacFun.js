@@ -1,7 +1,7 @@
 let waiterFacFun = function(pool) {
     let daysObject = async function() {
         let daysObjectQuery = await pool.query(`select name from days`);
-        console.log(daysObjectQuery.rows)
+        // console.log(daysObjectQuery.rows)
         return daysObjectQuery.rows;
     }
     let storeDetails = async function(userName) {
@@ -24,14 +24,17 @@ let waiterFacFun = function(pool) {
             console.log(error)
         }
     };
-    let getUserShifts = async function(userName) {
-        let getShiftsQuery = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE name = ($1)`, [userName]);
-        return getShiftsQuery.rows;
-    }
+
     let getNameId = async function(waiterName) {
         let getNameIdQuery = await pool.query(`SELECT (id) FROM waiters WHERE name = ($1)`, [waiterName]);
         console.log(getNameIdQuery.rows[0].id);
+
         return getNameIdQuery.rows[0].id;
+    }
+    let getUserShifts = async function(userName) {
+        let id = getNameId(userName);
+        let getShiftsQuery = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE waiter_id = ($1)`, [id]);
+        return getShiftsQuery.rows;
     }
 
     let getDayId = async function(daysSelected) {
@@ -41,19 +44,41 @@ let waiterFacFun = function(pool) {
     }
 
     let storeShifts = async function(waiterName, daysSelected) {
-        let isUser = await verifyUser();
-        console.log(
-            isUser
-        );
+        // let storeDet = await storeDetails(waiterName);
+        // console.log(daysSelected);
+        let daysObj = await daysObject();
+        let waiterId = await getNameId(waiterName);
+        for (const day of daysObj) {
+            // console.log(day.name)
 
-        if (isUser != 1) {
-            let waiterId = await getNameId(waiterName);
-            let dayId = await getDayId(daysSelected);
-            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id, name, day) VALUES ($1, $2, $3,$4)', [waiterId, dayId, waiterName, daysSelected]);
-            storeShiftsQuery;
-        } else {
-            console.log("usersaved ")
+            for (const workday of daysSelected) {
+
+                if (day.name === workday) {
+                    var dayId = await getDayId(workday);
+                    console.log(dayId);
+                    let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
+
+                }
+            }
         }
+        // let isUser = await verifyUser();
+        // console.log(
+        //     isUser
+        // );
+
+        // if (isUser != 1) {
+
+        //     let dayId = await getDayId(daysSelected);
+        //     console.log({
+        //         dayId
+        //     })
+
+        // console.log(daysObj);
+        // let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
+        // storeShiftsQuery;
+        // } else {
+        //     console.log("usersaved ")
+        // }
         // if ((!waiterName) && (!daysSelected)) {
         //     console.log("choose waiter && days")
         // }

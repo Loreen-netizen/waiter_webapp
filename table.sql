@@ -13,8 +13,8 @@ name text not null
 CREATE TABLE shifts(
 waiter_id int not null,
 day_id int not null,
-name text not null,
-day text not null
+FOREIGN KEY (waiter_id) REFERENCES waiters (id),
+FOREIGN KEY (day_id) REFERENCES days (id)
 );
 
 
