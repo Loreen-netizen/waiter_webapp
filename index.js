@@ -65,7 +65,7 @@ app.post("/waiters/:username", async function(req, res) {
     } else {
         res.render("successRoute", {
             name,
-            // daysSelected,
+            days
         })
     }
 
