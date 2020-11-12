@@ -43,54 +43,55 @@ app.get("/", async function(req, res) {
         daysObj
     })
 });
-// app.get("/back", async function(req, res) {
-//     let daysObj = await waiterFacFun.daysObject();
-//     res.render("index", {
-//         daysObj
-//     })
-// });
 
 app.post("/waiters/:username", async function(req, res) {
-    req.flash('shifts', 'success!! shifts submitted')
+
     let name = req.params.username;
+    console.log({ name });
     // let getShifts = await waiterFacFun.getUserShifts(name);
     let days = req.body.selectedDays;
-    // console.log({ days });
-    // let storeDetails = await waiterFacFun.storeDetails(name)
+    console.log(req.body)
+
+    console.log({ days });
     let storeUserShifts = await waiterFacFun.storeShifts(name, days);
-    // let getUserShifts = await waiterFacFun.getUserShifts(name);
-    // console.log({ getUserShifts })
+    req.flash('shifts', 'success!! shifts submitted')
+    console.log({
+        storeUserShifts
+    });
+    if (storeUserShifts === false) {
+        req.flash('err', 'Please enter username and select days');
 
-    res.render("successRoute", {
-        name,
-        // daysSelected,
-        // storeUserShifts,
-        // storeDetails
+        res.render("index")
+    } else {
+        res.render("successRoute", {
+            name,
+            // daysSelected,
+        })
+    }
 
-    })
 });
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
     let daysObj = await waiterFacFun.daysObject();
-
+    let greet = await waiterFacFun.greetUser(name)
     let data = {
         verify: await waiterFacFun.verifyUser(name),
         storeUserDetails: await waiterFacFun.storeDetails(name)
-
     };
     try {
 
         res.render("index", {
             waiterShifts: data.storeUserDetails,
             daysObj,
-            name
+            name,
+            greet
         })
     } catch (error) {
         console.log(error)
     }
 });
 app.get("/days", async function(req, res) {
-    let allShifts = await waiterFacFun.getAllShifts();
+    let allShifts = await waiterFacFun.joinTables();
     console.log({ allShifts });
     res.render("days", {
         allShifts
