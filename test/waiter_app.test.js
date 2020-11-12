@@ -62,6 +62,30 @@ describe("waiterFacFun", async function() {
 
     });
 
+    it("should be able to join the shifts table to the waiters table", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+        let verifyInfoQuery = await waiterFacFun.verifyUser('Kitso');
+
+        let storeInfo = await waiterFacFun.storeDetails('Kitso');
+        storeInfo;
+        let storeShifts = await waiterFacFun.storeShifts('Kitso', 'Saturday');
+        storeShifts;
+        console.log({ storeShifts });
+        // storeInfo;
+
+        let joinTheTables = await waiterFacFun.joinTables();
+        console.log({ joinTheTables });
+        //assert
+        assert.deepEqual([{
+                "day": null,
+                "waiter": "Kitso"
+            }],
+            joinTheTables);
+
+    });
+
     // it("should be able to store all shifts selected by a user in the database", async function() {
     //     //assemble
     //     var waiterFacFun = await WaiterFacFun(pool);

@@ -54,6 +54,7 @@ let waiterFacFun = function(pool) {
 
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
+        console.log({ waiterId })
         for (const day of daysObj) {
             // console.log(day.name)
             if ((waiterName === ":username") || (daysSelected === undefined)) {
@@ -63,7 +64,10 @@ let waiterFacFun = function(pool) {
 
                     if (day.name === workday) {
                         var dayId = await getDayId(workday);
-                        console.log(dayId);
+                        console.log({
+                            dayId
+                        });
+                        console.log("yeu")
                         let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
 
                     }
@@ -75,40 +79,18 @@ let waiterFacFun = function(pool) {
 
     let joinTables = async function() {
 
-            let joinTablesQuery = await pool.query(`SELECT days.name 
-                AS day, waiters.name
-                 AS waiter 
-                 FROM days 
-                 INNER JOIN shifts 
-                 ON  days.id = shifts.day_id 
-                 INNER JOIN  waiters 
-                 ON  shifts.waiter_id = waiters.id`)
-            console.log(joinTablesQuery.rows);
-            return joinTablesQuery.rows;
+        let joinTablesQuery = await pool.query(`SELECT waiters.name 
+                AS waiter, days.name
+                 AS day 
+                 FROM waiters 
+                 LEFT JOIN shifts 
+                 ON  waiters.id = shifts.waiter_id 
+                 LEFT JOIN  days 
+                 ON  shifts.day_id = days.id`)
+        console.log(joinTablesQuery.rows);
+        return joinTablesQuery.rows;
 
-        }
-        // let isUser = await verifyUser();
-        // console.log(
-        //     isUser
-        // );
-
-    // if (isUser != 1) {
-
-    //     let dayId = await getDayId(daysSelected);
-    //     console.log({
-    //         dayId
-    //     })
-
-    // console.log(daysObj);
-    // let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
-    // storeShiftsQuery;
-    // } else {
-    //     console.log("usersaved ")
-    // }
-    //
-
-
-
+    }
 
     let getAllShifts = async function() {
         let allShiftsQuery = await pool.query(`SELECT * FROM shifts`);
