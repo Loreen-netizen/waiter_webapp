@@ -38,10 +38,8 @@ app.get("/addFlash", function(req, res) {
 });
 
 app.get("/", async function(req, res) {
-    let daysObj = await waiterFacFun.daysObject();
-    res.render("index", {
-        daysObj
-    })
+    // let daysObj = await waiterFacFun.daysObject();
+    res.render("loginRoute")
 });
 
 app.post("/waiters/:username", async function(req, res) {

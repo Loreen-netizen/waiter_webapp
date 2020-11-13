@@ -83,10 +83,12 @@ let waiterFacFun = function(pool) {
                 AS waiter, days.name
                  AS day 
                  FROM waiters 
-                 LEFT JOIN shifts 
+                 INNER JOIN shifts 
                  ON  waiters.id = shifts.waiter_id 
-                 LEFT JOIN  days 
-                 ON  shifts.day_id = days.id`)
+                 INNER JOIN days 
+                 ON  shifts.day_id = days.id 
+                 ORDER BY days.id
+                 `)
         console.log(joinTablesQuery.rows);
         return joinTablesQuery.rows;
 
@@ -104,6 +106,8 @@ let waiterFacFun = function(pool) {
         }
 
     }
+
+
     return {
         daysObject,
         storeDetails,
