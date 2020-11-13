@@ -89,7 +89,7 @@ app.get("/waiters/:username", async function(req, res) {
     }
 });
 app.get("/days", async function(req, res) {
-    let allShifts = await waiterFacFun.joinTables();
+    let allShifts = await waiterFacFun.daysObject();
     console.log({ allShifts });
     res.render("days", {
         allShifts

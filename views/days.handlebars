@@ -32,11 +32,16 @@
                         {{!-- <tbody> --}}
                             {{#each allShifts}}
 <tr><td class="h4"><a href="#"
-                                    class="text-reset text-decoration-none">{{this.day}}</a></td>
+                                    class="text-reset text-decoration-none">{{this.name}}</a></td>
 
                             
 
-                            <td class="h4">{{this.waiter}}</td></tr>
+                            <td class="h4">
+                                {{#each this.waiters}}
+                                <p>{{this.waiter}}</p>
+                                {{/each}}
+                                
+                                </td></tr>
 
                             {{/each}}
                         {{!-- </tbody> --}}

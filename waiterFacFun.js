@@ -2,7 +2,25 @@ let waiterFacFun = function(pool) {
     let daysObject = async function() {
         let daysObjectQuery = await pool.query(`select name from days`);
         // console.log(daysObjectQuery.rows)
-        return daysObjectQuery.rows;
+        const results = daysObjectQuery.rows;
+        const joined = await joinTables();
+        results.forEach((day) => {
+            day.waiters = [];
+            joined.forEach((waiter) => {
+                if (waiter.day === day.name) {
+                    day.waiters.push(waiter)
+                }
+
+                if (day.waiters.length >= 3) {
+                    day.color = 'red';
+                    day.disabled = 'disabled'
+                }
+            })
+
+        });
+
+        return results
+
     }
     let storeDetails = async function(userName) {
         let isUser = await verifyUser();
@@ -79,17 +97,21 @@ let waiterFacFun = function(pool) {
 
     let joinTables = async function() {
 
-        let joinTablesQuery = await pool.query(`SELECT waiters.name 
+        let joinTablesQuery = await pool.query(`SELECT  waiters.name 
                 AS waiter, days.name
                  AS day 
                  FROM waiters 
-                 INNER JOIN shifts 
-                 ON  waiters.id = shifts.waiter_id 
+                 INNER JOIN  (SELECT DISTINCT day_id AS id, waiter_id AS waiter FROM shifts) AS shiftsTbl
+                 ON  waiters.id = shiftsTbl.waiter 
                  INNER JOIN days 
-                 ON  shifts.day_id = days.id 
+                 ON shiftsTbl.id = days.id 
                  ORDER BY days.id
                  `)
-        console.log(joinTablesQuery.rows);
+            // let days = await daysObject();
+            // console.log({ w: joinTablesQuery.rows, days });
+
+
+
         return joinTablesQuery.rows;
 
     }
