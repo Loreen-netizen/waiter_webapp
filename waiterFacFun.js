@@ -12,8 +12,8 @@ let waiterFacFun = function(pool) {
                 }
 
                 if (day.waiters.length >= 3) {
-                    day.color = 'red';
-                    day.disabled = 'disabled'
+                    day.bg = 'bg-danger';
+                    day.disabled = 'disabled';
                 }
             })
 
@@ -129,6 +129,10 @@ let waiterFacFun = function(pool) {
 
     }
 
+    let clearAllShifts = async function() {
+        let clearAllShiftsQuery = await pool.query(`DELETE FROM shifts`)
+    }
+
 
     return {
         daysObject,
@@ -140,7 +144,8 @@ let waiterFacFun = function(pool) {
         storeShifts,
         getUserShifts,
         greetUser,
-        joinTables
+        joinTables,
+        clearAllShifts
 
     }
 }

@@ -36,9 +36,9 @@
 
                             
 
-                            <td class="h4">
+                            <td class="h4 list-group list-group-horizontal">
                                 {{#each this.waiters}}
-                                <p>{{this.waiter}}</p>
+                                     <p class="list-group-item shifts">{{this.waiter}}</p>
                                 {{/each}}
                                 
                                 </td></tr>
@@ -48,18 +48,24 @@
                     </table>
 
                 </div>
+                
 
-                <div class="col-12">
-                    <form action="/waiters/:username" method="GET">
-                        <div class="col-2 mt-5">
-                            <button type="submit" class="btn btn-light btn">back</button>
+                <div class="row">
+                   <div class="col-6 mt-5">
+                            <a href="/waiters/:username" type="submit" class="btn btn-light btn">back</a>
+
+                        </div>
+                  <form action="/reset" method="GET">
+                        <div class="col-6 mt-5">
+                            <button type="submit" class="btn btn-danger px-5 text-nowrap">Clear Shifts</button>
 
                         </div>
                     </form>
 
                 </div>
+              
             </div>
-        </div>
+          </div>
 </body>
 
 </html>

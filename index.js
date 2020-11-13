@@ -95,6 +95,12 @@ app.get("/days", async function(req, res) {
         allShifts
     })
 });
+app.get("/reset", async function(req, res) {
+    let resetDb = await waiterFacFun.clearAllShifts();
+    res.render("loginRoute", {
+        resetDb
+    })
+})
 
 let PORT = process.env.PORT || 3000
 app.listen(PORT, function() {

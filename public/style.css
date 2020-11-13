@@ -28,3 +28,8 @@ body {
     background-color: rgba(236, 168, 194, 0.2);
     border-radius: 5%;
 }
+
+.shifts {
+    color: white;
+    background-color: rgb(255, 39, 122);
+}
