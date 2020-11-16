@@ -1,14 +1,16 @@
 let waiterFacFun = function(pool) {
-    let daysObject = async function() {
+    let daysObject = async function(name) {
         let daysObjectQuery = await pool.query(`select name from days`);
         // console.log(daysObjectQuery.rows)
-        const results = daysObjectQuery.rows;
-        const joined = await joinTables();
-        results.forEach((day) => {
+        const weekDays = daysObjectQuery.rows;
+        const shiftsAndWaiterDetails = await joinTables();
+        weekDays.forEach(function(day) {
             day.waiters = [];
-            joined.forEach((waiter) => {
-                if (waiter.day === day.name) {
-                    day.waiters.push(waiter)
+            shiftsAndWaiterDetails.forEach(function(waiterObj) {
+                if (waiterObj.day === day.name) {
+                    day.waiters.push(waiterObj.waiter);
+                    console.log({ waiterObj });
+
                 }
 
                 if (day.waiters.length >= 3) {
@@ -16,10 +18,14 @@ let waiterFacFun = function(pool) {
                     day.disabled = 'disabled';
                 }
             })
+            shiftsAndWaiterDetails.forEach(function(waiter) {
+                if ((waiter.waiter === name) && (waiter.day === day.name))
+                    day.checked = "checked"
+            });
 
         });
 
-        return results
+        return weekDays
 
     }
     let storeDetails = async function(userName) {
@@ -52,6 +58,7 @@ let waiterFacFun = function(pool) {
     let getUserShifts = async function(userName) {
         let id = getNameId(userName);
         let getShiftsQuery = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE waiter_id = ($1)`, [id]);
+        console.log(getShiftsQuery.rows)
         return getShiftsQuery.rows;
     }
 

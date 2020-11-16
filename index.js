@@ -48,8 +48,7 @@ app.post("/waiters/:username", async function(req, res) {
     console.log({ name });
     // let getShifts = await waiterFacFun.getUserShifts(name);
     let days = req.body.selectedDays;
-    console.log(req.body)
-
+    // console.log(req.body)
     console.log({ days });
     let storeUserShifts = await waiterFacFun.storeShifts(name, days);
     req.flash('shifts', 'success!! shifts submitted')
@@ -70,11 +69,12 @@ app.post("/waiters/:username", async function(req, res) {
 });
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
-    let daysObj = await waiterFacFun.daysObject();
+    let daysObj = await waiterFacFun.daysObject(name);
     let greet = await waiterFacFun.greetUser(name)
     let data = {
         verify: await waiterFacFun.verifyUser(name),
-        storeUserDetails: await waiterFacFun.storeDetails(name)
+        storeUserDetails: await waiterFacFun.storeDetails(name),
+        // let getShifts = await waiterFacFun.getUserShifts(name);
     };
     try {
 
