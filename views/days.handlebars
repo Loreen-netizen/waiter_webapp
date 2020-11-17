@@ -24,48 +24,53 @@
 
                     <table class="table table-hover text-light">
                         {{!-- <thead> --}}
-                            <tr>
-                                <th scope="col" class="h4">Day</th>
-                                <th scope="col" class="h4">Waiters Working</th>
-                            </tr>
+                        <tr>
+                            <th scope="col" class="h4">Day</th>
+                            <th scope="col" class="h4">Waiters Working</th>
+                        </tr>
                         {{!-- </thead> --}}
                         {{!-- <tbody> --}}
-                            {{#each allShifts}}
-<tr><td class="h4"><a href="#"
+                            
+                        {{#each allShifts}}
+                        <tr>
+                            <td class="h4"><a href="#"
                                     class="text-reset text-decoration-none">{{this.name}}</a></td>
 
-                            
 
-                            <td class="h4 list-group list-group-horizontal">
+
+                            <td class="h4 list-group list-group-horizontal {{colour}}">
                                 {{#each this.waiters}}
-                                     <p class="list-group-item shifts">{{this.waiter}}</p>
+                                <p class="list-group-item shifts">{{this.waiter}}</p>
                                 {{/each}}
-                                
-                                </td></tr>
 
-                            {{/each}}
+                            </td>
+                        </tr>
+
+                        {{/each}}
                         {{!-- </tbody> --}}
                     </table>
 
                 </div>
-                
+
 
                 <div class="row">
-                   <div class="col-6 mt-5">
-                            <a href="/" type="submit" class="btn btn-light btn">back</a>
+                    <div class="col-6 mt-5">
+                        <a href="/" type="submit" class="btn btn-light btn">back</a>
 
-                        </div>
-                  <form action="/reset" method="GET">
+                    </div>
+                    <form action="/reset" method="GET">
                         <div class="col-6 mt-5">
-                            <button type="submit" class="btn btn-outline-danger px-5 text-nowrap text-danger bg-light">Clear Shifts</button>
+                            <button type="submit"
+                                class="btn btn-outline-danger px-5 text-nowrap text-danger bg-light">Clear
+                                Shifts</button>
 
                         </div>
                     </form>
 
                 </div>
-              
+
             </div>
-          </div>
+        </div>
 </body>
 
 </html>

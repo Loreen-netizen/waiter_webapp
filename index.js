@@ -90,9 +90,11 @@ app.get("/waiters/:username", async function(req, res) {
 });
 app.get("/days", async function(req, res) {
     let allShifts = await waiterFacFun.daysObject();
+    // let colour = await waiterFacFun.bgFunction();
     console.log({ allShifts });
     res.render("days", {
         allShifts
+        // colour
     })
 });
 app.get("/reset", async function(req, res) {

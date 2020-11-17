@@ -6,17 +6,15 @@ let waiterFacFun = function(pool) {
         const shiftsAndWaiterDetails = await joinTables();
         weekDays.forEach(function(day) {
             day.waiters = [];
-            shiftsAndWaiterDetails.forEach(function(waiterObj) {
-                if (waiterObj.day === day.name) {
-                    day.waiters.push(waiterObj.waiter);
-                    console.log({ waiterObj });
+            shiftsAndWaiterDetails.forEach(function(waiter) {
+                if (waiter.day === day.name) {
+                    day.waiters.push(waiter);
+                    console.log({ waiter });
 
                 }
-
                 if (day.waiters.length >= 3) {
-                    day.bg = 'bg-danger';
-                    day.disabled = 'disabled';
-                }
+                    day.disabled = 'disabled'
+                };
             })
             shiftsAndWaiterDetails.forEach(function(waiter) {
                 if ((waiter.waiter === name) && (waiter.day === day.name))
@@ -28,6 +26,20 @@ let waiterFacFun = function(pool) {
         return weekDays
 
     }
+
+    // let bgFunction = async function() {
+    //     let daysObjectQuery = await pool.query(`select name from days`);
+    //     let allShifts = await daysObject();
+    //     const weekDays = daysObjectQuery.rows;
+    //     weekDays.forEach(function(day) {
+    //         console.log(allShifts)
+    //         allShifts.forEach(async function(waiter) {
+    //             if (day.waiters.length < 3) { day.bg = "bg-success" } else if (day.waiters.length === 3) { day.bg = "bg-danger" }
+
+    //         })
+    //     })
+    // };
+
     let storeDetails = async function(userName) {
         let isUser = await verifyUser();
         console.log(isUser)
@@ -141,8 +153,10 @@ let waiterFacFun = function(pool) {
     }
 
 
+
     return {
         daysObject,
+        // bgFunction,
         storeDetails,
         verifyUser,
         getNameId,
@@ -153,7 +167,6 @@ let waiterFacFun = function(pool) {
         greetUser,
         joinTables,
         clearAllShifts
-
     }
 }
 module.exports = waiterFacFun;
