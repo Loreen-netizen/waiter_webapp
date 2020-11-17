@@ -20,15 +20,36 @@ describe("waiterFacFun", async function() {
         //act
         let getDays = await waiterFacFun.daysObject()
             //assert
-        assert.deepEqual([
-            { name: 'Monday' },
-            { name: 'Tuesday' },
-            { name: 'Wednesday' },
-            { name: 'Thursday' },
-            { name: 'Friday' },
-            { name: 'Saturday' },
-            { name: 'Sunday' }
-        ], getDays);
+        assert.deepEqual(
+            [{
+                    name: 'Monday',
+                    waiters: []
+                },
+                {
+                    name: 'Tuesday',
+                    waiters: []
+                },
+                {
+                    name: 'Wednesday',
+                    waiters: []
+                },
+                {
+                    name: 'Thursday',
+                    waiters: []
+                },
+                {
+                    name: 'Friday',
+                    waiters: []
+                },
+                {
+                    name: 'Saturday',
+                    waiters: []
+                },
+                {
+                    name: 'Sunday',
+                    waiters: []
+                }
+            ], getDays);
     });
     it("should be able to store values in the database", async function() {
         //assemble
@@ -62,6 +83,20 @@ describe("waiterFacFun", async function() {
 
     });
 
+    it("should be able to get day ID from the database", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+        let dayID = await waiterFacFun.getDayId('Tuesday');
+
+        // storeInfo;
+
+        //assert
+        assert.equal(
+            2, dayID);
+
+    });
+
     it("should be able to join the shifts table to the waiters table", async function() {
         //assemble
         var waiterFacFun = await WaiterFacFun(pool);
@@ -78,13 +113,24 @@ describe("waiterFacFun", async function() {
         let joinTheTables = await waiterFacFun.joinTables();
         console.log({ joinTheTables });
         //assert
-        assert.deepEqual([{
-                "day": null,
-                "waiter": "Kitso"
-            }],
+        assert.deepEqual([],
             joinTheTables);
 
     });
+
+    // it("should be able to join the shifts table to the waiters table", async function() {
+    //     //assemble
+    //     var waiterFacFun = await WaiterFacFun(pool);
+    //     //act
+    //     let verifyInfoQuery = await waiterFacFun.verifyUser('Kitso');
+
+    //     let storeInfo = await waiterFacFun.storeDetails('Kitso');
+    //     storeInfo;
+    //     let storeShifts = await waiterFacFun.storeShifts('Kitso', 'Saturday');
+    //     storeShifts;
+    //     console.log({ storeShifts });
+    // storeInfo;
+
 
     // it("should be able to store all shifts selected by a user in the database", async function() {
     //     //assemble
