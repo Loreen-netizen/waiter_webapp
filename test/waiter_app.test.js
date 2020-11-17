@@ -8,7 +8,7 @@ let pool = new Pool({
 });
 describe("waiterFacFun", async function() {
     beforeEach(async function() {
-        await pool.query(`delete from waiters`);
+        // await pool.query(`delete from waiters`);
         await pool.query(`delete from shifts`);
         // await pool.query(`ALTER SEQUENCE serial RESTART WITH 1`)
 
@@ -97,23 +97,38 @@ describe("waiterFacFun", async function() {
 
     });
 
+    it("should be able to get waiter ID from the database", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+        let storeInfo = await waiterFacFun.storeDetails('Asanda');
+        let nameID = await waiterFacFun.getNameId('Asanda');
+        let testQuery = await pool.query(`SELECT (id) FROM waiters WHERE name = ($1)`, ['Asanda'])
+            // storeInfo;
+
+        //assert
+        assert.equal(
+            testQuery.rows[0].id, nameID);
+
+    });
+
     it("should be able to join the shifts table to the waiters table", async function() {
         //assemble
         var waiterFacFun = await WaiterFacFun(pool);
         //act
-        let verifyInfoQuery = await waiterFacFun.verifyUser('Kitso');
-
-        let storeInfo = await waiterFacFun.storeDetails('Kitso');
-        storeInfo;
-        let storeShifts = await waiterFacFun.storeShifts('Kitso', 'Saturday');
-        storeShifts;
-        console.log({ storeShifts });
+        let dayID = await waiterFacFun.getDayId('Saturday');
+        console.log({ dayID })
+        let storeInfo = await waiterFacFun.storeDetails('Asanda');
+        let waiterID = await waiterFacFun.getNameId('Asanda');
+        let storeShifts = await pool.query(`INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)`, [waiterID, dayID]);
         // storeInfo;
-
         let joinTheTables = await waiterFacFun.joinTables();
-        console.log({ joinTheTables });
         //assert
-        assert.deepEqual([],
+
+        assert.deepEqual([{
+                day: 'Saturday',
+                waiter: 'Asanda'
+            }],
             joinTheTables);
 
     });
