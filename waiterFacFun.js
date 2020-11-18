@@ -67,8 +67,7 @@ let waiterFacFun = function(pool) {
 
         return getNameIdQuery.rows[0].id;
     }
-    let getUserShifts = async function(userName) {
-        let id = getNameId(userName);
+    let getUserShifts = async function(id) {
         let getShiftsQuery = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE waiter_id = ($1)`, [id]);
         console.log(getShiftsQuery.rows)
         return getShiftsQuery.rows;

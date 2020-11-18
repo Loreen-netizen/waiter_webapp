@@ -8,9 +8,8 @@ let pool = new Pool({
 });
 describe("waiterFacFun", async function() {
     beforeEach(async function() {
-        // await pool.query(`delete from waiters`);
         await pool.query(`delete from shifts`);
-        // await pool.query(`ALTER SEQUENCE serial RESTART WITH 1`)
+        await pool.query(`delete from waiters`);
 
 
     })
@@ -133,48 +132,29 @@ describe("waiterFacFun", async function() {
 
     });
 
-    // it("should be able to join the shifts table to the waiters table", async function() {
-    //     //assemble
-    //     var waiterFacFun = await WaiterFacFun(pool);
-    //     //act
-    //     let verifyInfoQuery = await waiterFacFun.verifyUser('Kitso');
-
-    //     let storeInfo = await waiterFacFun.storeDetails('Kitso');
-    //     storeInfo;
-    //     let storeShifts = await waiterFacFun.storeShifts('Kitso', 'Saturday');
-    //     storeShifts;
-    //     console.log({ storeShifts });
-    // storeInfo;
 
 
-    // it("should be able to store all shifts selected by a user in the database", async function() {
-    //     //assemble
-    //     var waiterFacFun = await WaiterFacFun(pool);
-    //     //act
-    //     // let verifyInfoQuery = await waiterFacFun.verifyUser('Lionel', 'l223');
-    //     let storeUserDetails = await waiterFacFun.storeDetails('Titi');
-    //     storeUserDetails;
-    //     let storeUserShifts = await waiterFacFun.storeShifts('Titi', 'Tuesday')
-    //     storeUserShifts;
+    it("should be able to store all shifts selected by a user in the database", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        let storeUserDetails = await waiterFacFun.storeDetails('Titi');
+        let waiterID = await waiterFacFun.getNameId('Titi');
+        let dayID = await waiterFacFun.getDayId('Wednesday');
+        console.log({ dayID })
 
-    //     // storeInfo;
+        let storeShifts = await pool.query(`INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)`, [waiterID, dayID]);
 
-    //     let getShifts = await waiterFacFun.getUserShifts('Titi');
-    //     //assert
-    //     assert.deepEqual([{ "row": "(75++,2)" }], getShifts);
+        //act
 
-    // });
 
-    // it("should be able to return all shifts selected by a user as an object", async function() {
-    //     //assemble
-    //     var waiterFacFun = await WaiterFacFun(pool);
-    //     //act
-    //     let storeUserDetails = await waiterFacFun.storeDetails('Kai');
-    //     let storeUserShifts = await waiterFacFun.storeShifts('Kai', 'Thursday')
-    //     let getShifts = await waiterFacFun.getUserShifts('Kai');
-    //     //assert
-    //     assert.deepEqual([{ "row": "(83,4)" }], getShifts);
-    // });
+        let testGetShifts = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE waiter_id = ($1)`, [waiterID]);
+        let getShifts = await waiterFacFun.getUserShifts(waiterID);
+
+        //assert
+        assert.deepEqual(getShifts, testGetShifts.rows);
+
+    });
+
     after(async function() {
         await pool.end();
     })
