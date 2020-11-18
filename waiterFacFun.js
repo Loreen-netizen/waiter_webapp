@@ -34,7 +34,6 @@ let waiterFacFun = function(pool) {
             console.log(waiter.waiters.length)
             var waitersPerDay = waiter.waiters.length
             if (waitersPerDay < 3) {
-                let name = waiter.name
                 let bg = "bg-success";
                 colours.push(bg)
                 console.log(bg)
