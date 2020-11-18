@@ -155,6 +155,20 @@ describe("waiterFacFun", async function() {
 
     });
 
+    it("should be able to reset the shifts when admin want to start a new week of shifts", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        //act
+
+        let clearShifts = await waiterFacFun.clearAllShifts();
+        // storeInfo;
+
+        //assert
+        assert.deepEqual(
+            [], clearShifts);
+
+    });
+
     after(async function() {
         await pool.end();
     })

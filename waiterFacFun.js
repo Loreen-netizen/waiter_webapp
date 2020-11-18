@@ -148,7 +148,9 @@ let waiterFacFun = function(pool) {
     }
 
     let clearAllShifts = async function() {
-        let clearAllShiftsQuery = await pool.query(`DELETE FROM shifts`)
+        let clearAllShiftsQuery = await pool.query(`DELETE FROM shifts`);
+        console.log(clearAllShiftsQuery.rows)
+        return clearAllShiftsQuery.rows;
     }
 
 
