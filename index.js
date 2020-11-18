@@ -45,16 +45,16 @@ app.get("/", async function(req, res) {
 app.post("/waiters/:username", async function(req, res) {
 
     let name = req.params.username;
-    console.log({ name });
+    // console.log({ name });
     // let getShifts = await waiterFacFun.getUserShifts(name);
     let days = req.body.selectedDays;
     // console.log(req.body)
-    console.log({ days });
+    // console.log({ days });
     let storeUserShifts = await waiterFacFun.storeShifts(name, days);
     req.flash('shifts', 'success!! shifts submitted')
-    console.log({
-        storeUserShifts
-    });
+        // console.log({
+        //     storeUserShifts
+        // });
     if (storeUserShifts === false) {
         req.flash('err', 'Please enter username and select days');
 
@@ -89,12 +89,14 @@ app.get("/waiters/:username", async function(req, res) {
     }
 });
 app.get("/days", async function(req, res) {
-    let allShifts = await waiterFacFun.daysObject();
-    // let colour = await waiterFacFun.bgFunction();
-    console.log({ allShifts });
+    let data = {
+        allShifts: await waiterFacFun.daysObject(),
+        bg: await waiterFacFun.bgFunction()
+
+    }
+    console.log(data.bg);
     res.render("days", {
-        allShifts
-        // colour
+        data
     })
 });
 app.get("/reset", async function(req, res) {

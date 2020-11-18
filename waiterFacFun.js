@@ -27,34 +27,44 @@ let waiterFacFun = function(pool) {
 
     }
 
-    // let bgFunction = async function() {
-    //     let daysObjectQuery = await pool.query(`select name from days`);
-    //     let allShifts = await daysObject();
-    //     const weekDays = daysObjectQuery.rows;
-    //     weekDays.forEach(function(day) {
-    //         console.log(allShifts)
-    //         allShifts.forEach(async function(waiter) {
-    //             if (day.waiters.length < 3) { day.bg = "bg-success" } else if (day.waiters.length === 3) { day.bg = "bg-danger" }
+    let bgFunction = async function() {
+        // let daysObjectQuery = await pool.query(`select name from days`);
+        let allShifts = await daysObject();
+        // const weekDays = daysObjectQuery.rows;
+        // weekDays.forEach(function(day) {
+        //   console.log(allShifts)
+        allShifts.forEach(async function(waiter) {
+            console.log(allShifts)
+            console.log(waiter.waiters.length)
+            var numbberOfpeople = waiter.waiters.length
+            if (numbberOfpeople == 1) {
+                console.log("asdfghjdfghjkfghj");
+                return waiter.name.bg = "bg-success"
 
-    //         })
-    //     })
-    // };
+            } else if (waiter.waiters.length > 3) {
+                console.log(waiter.name.bg);
+                return waiter.name.bg = "bg-warning"
+            }
+
+        })
+
+    };
 
     let storeDetails = async function(userName) {
         let isUser = await verifyUser();
-        console.log(isUser)
+        // console.log(isUser)
         if (isUser != 1) {
 
             let storeDetailsQuery = await pool.query('INSERT INTO waiters (name) VALUES ($1)', [userName]);
             storeDetailsQuery;
-            console.log("stored")
+            // console.log("stored")
 
         }
     }
     let verifyUser = async function(userName) {
         try {
             var verifyUserQuery = await pool.query(`SELECT name FROM waiters WHERE name=($1)`, [userName]);
-            console.log(verifyUserQuery.rows)
+            // console.log(verifyUserQuery.rows)
             return verifyUserQuery.rows
         } catch (error) {
             console.log(error)
@@ -63,34 +73,35 @@ let waiterFacFun = function(pool) {
 
     let getNameId = async function(waiterName) {
         let getNameIdQuery = await pool.query(`SELECT (id) FROM waiters WHERE name = ($1)`, [waiterName]);
-        console.log(getNameIdQuery.rows[0].id);
+        // console.log(getNameIdQuery.rows[0].id);
 
         return getNameIdQuery.rows[0].id;
     }
     let getUserShifts = async function(id) {
         let getShiftsQuery = await pool.query(`SELECT (waiter_id,day_id) FROM shifts WHERE waiter_id = ($1)`, [id]);
-        console.log(getShiftsQuery.rows)
+        // console.log(getShiftsQuery.rows)
         return getShiftsQuery.rows;
     }
 
     let getDayId = async function(daysSelected) {
         let getDayIdQuery = await pool.query(`SELECT (id) FROM days WHERE name = ($1)`, [daysSelected]);
-        console.log(getDayIdQuery.rows[0].id);
+        // console.log(getDayIdQuery.rows[0].id);
+
         return getDayIdQuery.rows[0].id;
     }
 
     let storeShifts = async function(waiterName, daysSelected) {
         // let storeDet = await storeDetails(waiterName);
-        console.log({
-            daysSelected
-        });
-        console.log({
-            waiterName
-        });
+        // console.log({
+        //     daysSelected
+        // });
+        // console.log({
+        //     waiterName
+        // });
 
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
-        console.log({ waiterId })
+        // console.log({ waiterId })
         for (const day of daysObj) {
             // console.log(day.name)
             if ((waiterName === ":username") || (daysSelected === undefined)) {
@@ -100,10 +111,10 @@ let waiterFacFun = function(pool) {
 
                     if (day.name === workday) {
                         var dayId = await getDayId(workday);
-                        console.log({
-                            dayId
-                        });
-                        console.log("yeu")
+                        // console.log({
+                        //     dayId
+                        // });
+                        // console.log("yeu")
                         let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
 
                     }
@@ -149,7 +160,7 @@ let waiterFacFun = function(pool) {
 
     let clearAllShifts = async function() {
         let clearAllShiftsQuery = await pool.query(`DELETE FROM shifts`);
-        console.log(clearAllShiftsQuery.rows)
+        // console.log(clearAllShiftsQuery.rows)
         return clearAllShiftsQuery.rows;
     }
 
@@ -157,7 +168,7 @@ let waiterFacFun = function(pool) {
 
     return {
         daysObject,
-        // bgFunction,
+        bgFunction,
         storeDetails,
         verifyUser,
         getNameId,

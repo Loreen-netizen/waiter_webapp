@@ -155,6 +155,24 @@ describe("waiterFacFun", async function() {
 
     });
 
+    it("should be able to update background colour of days depending on number of waiters working", async function() {
+        //assemble
+        var waiterFacFun = await WaiterFacFun(pool);
+        let storeUserDetails = await waiterFacFun.storeDetails('Lolo');
+        let waiterID = await waiterFacFun.getNameId('Lolo');
+        let dayID = await waiterFacFun.getDayId('Friday');
+        console.log({ dayID })
+
+        let storeShifts = await pool.query(`INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)`, [waiterID, dayID]);
+
+        //act
+        let bgFunc = await waiterFacFun.bgFunction();
+
+        //assert
+        assert.equal("bg-success", bgFunc);
+
+    });
+
     it("should be able to reset the shifts when admin want to start a new week of shifts", async function() {
         //assemble
         var waiterFacFun = await WaiterFacFun(pool);

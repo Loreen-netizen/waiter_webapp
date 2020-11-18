@@ -31,14 +31,14 @@
                         {{!-- </thead> --}}
                         {{!-- <tbody> --}}
                             
-                        {{#each allShifts}}
+                        {{#each data.allShifts}}
                         <tr>
                             <td class="h4"><a href="#"
                                     class="text-reset text-decoration-none">{{this.name}}</a></td>
 
 
 
-                            <td class="h4 list-group list-group-horizontal {{colour}}">
+                            <td class="h4 list-group list-group-horizontal {{data.bg}}{{bg-success}}{{bg-danger}}">
                                 {{#each this.waiters}}
                                 <p class="list-group-item shifts">{{this.waiter}}</p>
                                 {{/each}}
