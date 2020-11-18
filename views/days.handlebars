@@ -30,22 +30,22 @@
                         </tr>
                         {{!-- </thead> --}}
                         {{!-- <tbody> --}}
-                            
-                        {{#each data.allShifts}}
+
+                        {{#each allShifts}}
+                        
                         <tr>
-                            <td class="h4"><a href="#"
-                                    class="text-reset text-decoration-none">{{this.name}}</a></td>
+                            <td class="h4"><a href="#" class="text-reset text-decoration-none">{{this.name}}</a></td>
 
 
 
-                            <td class="h4 list-group list-group-horizontal {{data.bg}}{{bg-success}}{{bg-danger}}">
+                            <td class="h4 list-group list-group-horizontal">
                                 {{#each this.waiters}}
                                 <p class="list-group-item shifts">{{this.waiter}}</p>
                                 {{/each}}
 
                             </td>
                         </tr>
-
+                        
                         {{/each}}
                         {{!-- </tbody> --}}
                     </table>

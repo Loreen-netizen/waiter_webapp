@@ -89,14 +89,14 @@ app.get("/waiters/:username", async function(req, res) {
     }
 });
 app.get("/days", async function(req, res) {
-    let data = {
-        allShifts: await waiterFacFun.daysObject(),
-        bg: await waiterFacFun.bgFunction()
+    let allShifts = await waiterFacFun.daysObject();
+    let bg = { bg: await waiterFacFun.bgFunction() };
+    console.log(bg);
 
-    }
-    console.log(data.bg);
+
     res.render("days", {
-        data
+        allShifts,
+        bg
     })
 });
 app.get("/reset", async function(req, res) {

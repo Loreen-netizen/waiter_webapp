@@ -28,26 +28,25 @@ let waiterFacFun = function(pool) {
     }
 
     let bgFunction = async function() {
-        // let daysObjectQuery = await pool.query(`select name from days`);
         let allShifts = await daysObject();
-        // const weekDays = daysObjectQuery.rows;
-        // weekDays.forEach(function(day) {
-        //   console.log(allShifts)
+        let colours = [];
         allShifts.forEach(async function(waiter) {
-            console.log(allShifts)
             console.log(waiter.waiters.length)
-            var numbberOfpeople = waiter.waiters.length
-            if (numbberOfpeople == 1) {
-                console.log("asdfghjdfghjkfghj");
-                return waiter.name.bg = "bg-success"
+            var waitersPerDay = waiter.waiters.length
+            if (waitersPerDay < 3) {
+                let name = waiter.name
+                let bg = "bg-success";
+                colours.push(bg)
+                console.log(bg)
 
-            } else if (waiter.waiters.length > 3) {
-                console.log(waiter.name.bg);
-                return waiter.name.bg = "bg-warning"
+
+            } else if (waitersPerDay > 3) {
+                let bg = "bg-warning";
+                colours.push(bg)
             }
-
         })
-
+        console.log({ colours })
+        return colours
     };
 
     let storeDetails = async function(userName) {
