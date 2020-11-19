@@ -38,23 +38,15 @@ app.get("/addFlash", function(req, res) {
 });
 
 app.get("/", async function(req, res) {
-    // let daysObj = await waiterFacFun.daysObject();
     res.render("loginRoute")
 });
 
 app.post("/waiters/:username", async function(req, res) {
 
     let name = req.params.username;
-    // console.log({ name });
-    // let getShifts = await waiterFacFun.getUserShifts(name);
     let days = req.body.selectedDays;
-    // console.log(req.body)
-    // console.log({ days });
     let storeUserShifts = await waiterFacFun.storeShifts(name, days);
     req.flash('shifts', 'success!! shifts submitted')
-        // console.log({
-        //     storeUserShifts
-        // });
     if (storeUserShifts === false) {
         req.flash('err', 'Please enter username and select days');
 
@@ -67,6 +59,18 @@ app.post("/waiters/:username", async function(req, res) {
     }
 
 });
+
+app.get("/updateshifts", async function(req, res) {
+    let name = await req.params.username;
+    let days = await req.body.selectedDays;
+    let updateshift = await waiterFacFun.clearUserShifts();
+    req.flash('shifts', 'success!! shifts updated')
+    res.render("successRoute", {
+        name,
+        days,
+        updateshift
+    })
+});
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
     let daysObj = await waiterFacFun.daysObject(name);
@@ -74,7 +78,6 @@ app.get("/waiters/:username", async function(req, res) {
     let data = {
         verify: await waiterFacFun.verifyUser(name),
         storeUserDetails: await waiterFacFun.storeDetails(name),
-        // let getShifts = await waiterFacFun.getUserShifts(name);
     };
     try {
 
@@ -90,13 +93,11 @@ app.get("/waiters/:username", async function(req, res) {
 });
 app.get("/days", async function(req, res) {
     let allShifts = await waiterFacFun.daysObject();
-    let bg = { bg: await waiterFacFun.bgFunction() };
-    console.log(bg);
+
 
 
     res.render("days", {
-        allShifts,
-        bg
+        allShifts
     })
 });
 app.get("/reset", async function(req, res) {

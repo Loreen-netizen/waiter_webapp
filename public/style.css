@@ -29,7 +29,13 @@ body {
     border-radius: 5%;
 }
 
-.shifts {
+.days-div {
+    background-color: white;
+    border-radius: 5px;
+}
+
+*/
+/* .shifts {
     color: white;
     background-color: rgb(255, 39, 122);
-}
+} */

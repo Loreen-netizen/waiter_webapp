@@ -28,9 +28,9 @@
                 <div class="row">
                     <h2 class="col-12 titleHeader">Waiter Availability</h2>
                 </div>
-  <form action="/waiters/{{name}}" method="POST">
-                <div class="row py-5 px-5">
-                  
+                <form action="/waiters/{{name}}" method="POST">
+                    <div class="row py-5 px-5">
+
                         {{#each daysObj}}
                         <div class="form-check form-check-inline py-5">
                             <input class="form-check-input big" type="checkbox" id="inlineCheckbox1" name="selectedDays"
@@ -38,26 +38,31 @@
                             <label class="form-check-label" for="inlineCheckbox1">{{this.name}}</label>
                         </div>
                         {{/each}}
-                        
-                </div>
-                 {{#if messages.err}}
-                        {{!-- <div class="alert alert-danger alert-dismissible" role="alert">
+
+                    </div>
+                    {{#if messages.err}}
+                    {{!-- <div class="alert alert-danger alert-dismissible" role="alert">
 
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times; --}}
-                                <p class="text-center text-danger bg-light p-3 h5 rounded">{{messages.err}} </p>
-                        {{!-- </div> --}}
-                        <br>
-                        <a href="/waiters/:username" type="submit" class="btn btn-light btn mt-3" name="submitShifts">pick shifts</a>
+                    <p class="text-center text-danger bg-light p-3 h5 rounded">{{messages.err}} </p>
+                    {{!-- </div> --}}
+                    <br>
+                    <a href="/waiters/:username" type="submit" class="btn btn-light btn mt-3" name="submitShifts">pick
+                        shifts</a>
 
 
 
-                        {{else}}
-                        <button type="submit" class="btn btn-light btn mt-3 " name="submitShifts">submit shifts</button>
+                    {{else}}
+                    <button type="submit" class="btn btn-light btn mt-3 " name="submitShifts">submit shifts</button>
+                    
+
+                    {{/if}}
+                    <a href="/updateshifts" type="submit" class="btn btn-light btn mt-3" name="submitShifts">update
+                        shifts</a>
 
 
-                        {{/if}}
-                   
-                 </form>
+                </form>
+                <form action="/updateshifts" method="GET"></form>
                 <div class="col-12">
 
                 </div>
