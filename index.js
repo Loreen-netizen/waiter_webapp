@@ -37,13 +37,17 @@ app.get("/addFlash", function(req, res) {
     }
 });
 
-// app.get("/", async function(req, res) {
-//     let name = req.params.username;
-//     let daysObj = await waiterFacFun.daysObject();
-//     res.render("index"), {
-//         daysObj
-//     }
-// });
+app.get("/", async function(req, res) {
+    let name = req.params.username;
+    let daysObj = await waiterFacFun.getDays();
+    console.log({ daysObj })
+    if (!name) {
+        (req.flash('name', 'please enter name in URL e.g : http://localhost:3000/waiters/ANDRE'))
+    };
+    res.render("index", {
+        daysObj
+    })
+});
 
 app.post("/waiters/:username", async function(req, res) {
 
@@ -59,32 +63,14 @@ app.post("/waiters/:username", async function(req, res) {
         res.render("successRoute", {
             name,
             days,
-            // storeUserShifts
         })
     }
 
 });
 
-// app.get("/updateshifts", async function(req, res) {
-//     let name = await req.params.username;
-//     let days = await req.body.selectedDays;
-//     let storeUserDetails = await waiterFacFun.storeDetails(name);
-//     let updateshift = await waiterFacFun.clearUserShifts(name);
-//     let storeUserShifts = await waiterFacFun.storeShifts(name, days);
-//     req.flash('shifts', 'success!! shifts updated')
-//     res.render("successRoute", {
-//         name,
-//         days,
-//         updateshift,
-//         storeUserShifts,
-//         storeUserDetails
-//     })
-// });
+
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
-    if (name === ":username") {
-        (req.flash('name', 'please enter your name in the URL eg http://localhost:3000/waiters/Riri'))
-    };
     let daysObj = await waiterFacFun.daysObject(name);
     let greet = await waiterFacFun.greetUser(name)
     let data = {

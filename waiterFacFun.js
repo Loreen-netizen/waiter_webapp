@@ -2,15 +2,12 @@ let waiterFacFun = function(pool) {
     let daysObject = async function(name) {
         let daysObjectQuery = await pool.query(`select name from days`);
         const weekDays = daysObjectQuery.rows;
-        // const nameId = await getNameId()
         const shiftsAndWaiterDetails = await joinTables();
         weekDays.forEach(function(day) {
             day.waiters = [];
             shiftsAndWaiterDetails.forEach(function(waiter) {
                 if (waiter.day === day.name) {
                     day.waiters.push(waiter);
-                    // console.log({ waiter });
-
                 }
                 if (day.waiters.length >= 1) {
                     day.color = "bg-warning"
@@ -31,6 +28,11 @@ let waiterFacFun = function(pool) {
 
         return weekDays
 
+    }
+
+    let getDays = async function() {
+        let daysObjectQuery = await pool.query(`select name from days`);
+        return daysObjectQuery.rows;
     }
 
 
@@ -65,17 +67,11 @@ let waiterFacFun = function(pool) {
         return getDayIdQuery.rows[0].id;
     }
 
-    // let clearUserShifts = async function(name) {
-    //     let waiterId = await getNameId(name);
-    //     let clearmyShifts = await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
-    // };
-
     let storeShifts = async function(waiterName, daysSelected) {
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
-
         let userSHifts = await getUserShifts(waiterId);
-        console.log({ userSHifts });
+        console.log({ userSHifts.length });
         if (userSHifts !== []) await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
 
         for (const day of daysObj) {
@@ -87,8 +83,6 @@ let waiterFacFun = function(pool) {
 
                     if (day.name === workday) {
                         var dayId = await getDayId(workday);
-                        console.log("helo");
-
                         let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
 
                     }
@@ -147,7 +141,7 @@ let waiterFacFun = function(pool) {
         getUserShifts,
         greetUser,
         joinTables,
-        // clearUserShifts,
+        getDays,
         clearAllShifts
     }
 }
