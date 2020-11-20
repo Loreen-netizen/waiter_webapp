@@ -2,13 +2,15 @@ let waiterFacFun = function(pool) {
     let daysObject = async function(name) {
         let daysObjectQuery = await pool.query(`select name from days`);
         const weekDays = daysObjectQuery.rows;
+        // const nameId = await getNameId()
         const shiftsAndWaiterDetails = await joinTables();
+        // await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [nameId]);
         weekDays.forEach(function(day) {
             day.waiters = [];
             shiftsAndWaiterDetails.forEach(function(waiter) {
                 if (waiter.day === day.name) {
                     day.waiters.push(waiter);
-                    console.log({ waiter });
+                    // console.log({ waiter });
 
                 }
                 if (day.waiters.length >= 1) {
@@ -64,22 +66,26 @@ let waiterFacFun = function(pool) {
         return getDayIdQuery.rows[0].id;
     }
 
-    let clearUserShifts = async function(name) {
-        // let waiterId = await getNameId(name);
-        // let clearmyShifts = await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
-    };
+    // let clearUserShifts = async function(name) {
+    //     let waiterId = await getNameId(name);
+    //     let clearmyShifts = await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
+    // };
 
     let storeShifts = async function(waiterName, daysSelected) {
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
+        let userSHifts = await getUserShifts(waiterId);
+        console.log({ userSHifts });
+        // await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
         for (const day of daysObj) {
-            if ((waiterName === ":username") || (daysSelected === undefined)) {
+            if (waiterName === ":username" || daysSelected === undefined) {
                 return (false)
             } else {
                 for (const workday of daysSelected) {
 
                     if (day.name === workday) {
                         var dayId = await getDayId(workday);
+                        console.log("helo")
                         let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
 
                     }
@@ -138,7 +144,7 @@ let waiterFacFun = function(pool) {
         getUserShifts,
         greetUser,
         joinTables,
-        clearUserShifts,
+        // clearUserShifts,
         clearAllShifts
     }
 }

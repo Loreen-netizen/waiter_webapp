@@ -54,23 +54,28 @@ app.post("/waiters/:username", async function(req, res) {
     } else {
         res.render("successRoute", {
             name,
-            days
+            days,
+            // storeUserShifts
         })
     }
 
 });
 
-app.get("/updateshifts", async function(req, res) {
-    let name = await req.params.username;
-    let days = await req.body.selectedDays;
-    let updateshift = await waiterFacFun.clearUserShifts();
-    req.flash('shifts', 'success!! shifts updated')
-    res.render("successRoute", {
-        name,
-        days,
-        updateshift
-    })
-});
+// app.get("/updateshifts", async function(req, res) {
+//     let name = await req.params.username;
+//     let days = await req.body.selectedDays;
+//     let storeUserDetails = await waiterFacFun.storeDetails(name);
+//     let updateshift = await waiterFacFun.clearUserShifts(name);
+//     let storeUserShifts = await waiterFacFun.storeShifts(name, days);
+//     req.flash('shifts', 'success!! shifts updated')
+//     res.render("successRoute", {
+//         name,
+//         days,
+//         updateshift,
+//         storeUserShifts,
+//         storeUserDetails
+//     })
+// });
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
     let daysObj = await waiterFacFun.daysObject(name);
