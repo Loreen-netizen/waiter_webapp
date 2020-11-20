@@ -4,7 +4,6 @@ let waiterFacFun = function(pool) {
         const weekDays = daysObjectQuery.rows;
         // const nameId = await getNameId()
         const shiftsAndWaiterDetails = await joinTables();
-        // await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [nameId]);
         weekDays.forEach(function(day) {
             day.waiters = [];
             shiftsAndWaiterDetails.forEach(function(waiter) {
@@ -74,18 +73,22 @@ let waiterFacFun = function(pool) {
     let storeShifts = async function(waiterName, daysSelected) {
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
+
         let userSHifts = await getUserShifts(waiterId);
         console.log({ userSHifts });
-        // await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
+        if (userSHifts !== []) await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
+
         for (const day of daysObj) {
             if (waiterName === ":username" || daysSelected === undefined) {
                 return (false)
             } else {
+
                 for (const workday of daysSelected) {
 
                     if (day.name === workday) {
                         var dayId = await getDayId(workday);
-                        console.log("helo")
+                        console.log("helo");
+
                         let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
 
                     }

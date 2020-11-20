@@ -37,9 +37,13 @@ app.get("/addFlash", function(req, res) {
     }
 });
 
-app.get("/", async function(req, res) {
-    res.render("loginRoute")
-});
+// app.get("/", async function(req, res) {
+//     let name = req.params.username;
+//     let daysObj = await waiterFacFun.daysObject();
+//     res.render("index"), {
+//         daysObj
+//     }
+// });
 
 app.post("/waiters/:username", async function(req, res) {
 
@@ -78,6 +82,9 @@ app.post("/waiters/:username", async function(req, res) {
 // });
 app.get("/waiters/:username", async function(req, res) {
     let name = await req.params.username;
+    if (name === ":username") {
+        (req.flash('name', 'please enter your name in the URL eg http://localhost:3000/waiters/Riri'))
+    };
     let daysObj = await waiterFacFun.daysObject(name);
     let greet = await waiterFacFun.greetUser(name)
     let data = {
@@ -107,7 +114,7 @@ app.get("/days", async function(req, res) {
 });
 app.get("/reset", async function(req, res) {
     let resetDb = await waiterFacFun.clearAllShifts();
-    res.render("loginRoute", {
+    res.render("days", {
         resetDb
     })
 })

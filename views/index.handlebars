@@ -16,13 +16,24 @@
             <div class="col-1">
                 <h3></h3>
             </div>
-            {{#if greet}}
-            <div class="alert alert-text alert-dismissible my-5 justify-content-center">
+            <div class="row">
+                 {{#if greet}}
+            
+            <div class="alert alert-text alert-dismissible my-5 mr-5 justify-content-center col-12">
 
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <p class="text-center h4">{{greet}} </p>
             </div>
+            {{else}}
+              <div class="alert alert-text alert-dismissible my-5 ml-5 justify-content-center col-12">
+
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p class="text-center h4">{{messages.name}} </p>
+            </div>
+            
             {{/if}}
+            </div>
+           
             <div class="col-9 text-center display-5 w-100 p-5 mt-5 center-div">
 
                 <div class="row">
@@ -41,11 +52,7 @@
 
                     </div>
                     {{#if messages.err}}
-                    {{!-- <div class="alert alert-danger alert-dismissible" role="alert">
-
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times; --}}
                     <p class="text-center text-danger bg-light p-3 h5 rounded">{{messages.err}} </p>
-                    {{!-- </div> --}}
                     <br>
                     <a href="/waiters/:username" type="submit" class="btn btn-light btn mt-3" name="submitShifts">pick
                         shifts</a>
@@ -54,36 +61,22 @@
 
                     {{else}}
                     <button type="submit" class="btn btn-light btn mt-3 " name="submitShifts">submit shifts</button>
-                    
+
 
                     {{/if}}
-                    {{!-- <a href="/updateshifts" type="submit" class="btn btn-light btn mt-3" name="submitShifts">update
-                        shifts</a>
+                    <div class="col-12">
+
+                    </div>
+
+                    <div class="col-12">
 
 
-                </form>
-                <form action="/updateshifts" method="GET"></form> --}}
-                <div class="col-12">
-
-                </div>
-
-                <div class="col-12">
-
-
-                </div>
+                    </div>
 
 
             </div>
 
             <div class="col-1">
-                {{!--{{else}}
-                {{signIn}}
-
-                
-            </div> --}}
-
-
-
             </div>
 
             <div class="row">
