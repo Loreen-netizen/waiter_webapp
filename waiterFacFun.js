@@ -71,7 +71,7 @@ let waiterFacFun = function(pool) {
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
         let userSHifts = await getUserShifts(waiterId);
-        console.log({ userSHifts.length });
+        console.log({ userSHifts });
         if (userSHifts !== []) await pool.query(`DELETE FROM shifts WHERE waiter_id = $1`, [waiterId]);
 
         for (const day of daysObj) {
