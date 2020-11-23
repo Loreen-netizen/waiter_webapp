@@ -14,6 +14,7 @@ let waiterFacFun = function(pool) {
                 };
                 if (day.waiters.length === 3) {
                     day.color = "bg-success"
+                    day.disabled = "disabled"
                 };
                 if (day.waiters.length > 3) {
                     day.color = "bg-danger"
