@@ -10,7 +10,9 @@ let pool = new Pool({
     connectionString
 });
 let WaiterFacFun = require("./waiterFacFun.js");
+let WaiterRoutes = require("./routes.js");
 let waiterFacFun = WaiterFacFun(pool);
+let waiterRoutes = WaiterRoutes(waiterFacFun);
 let bodyParser = require("body-parser")
 let app = express();
 
@@ -37,73 +39,14 @@ app.get("/addFlash", function(req, res) {
     }
 });
 
-app.get("/", async function(req, res) {
-    let name = req.params.username;
-    let daysObj = await waiterFacFun.getDays();
-    console.log({ daysObj })
-    if (!name) {
-        (req.flash('name', 'please enter name in URL e.g : http://localhost:3000/waiters/ANDRE'))
-    };
-    res.render("index", {
-        daysObj
-    })
-});
+app.get("/", waiterRoutes.flashMessages);
 
-app.post("/waiters/:username", async function(req, res) {
-
-    let name = req.params.username;
-    let days = req.body.selectedDays;
-    let storeUserShifts = await waiterFacFun.storeShifts(name, days);
-    req.flash('shifts', 'success!! shifts submitted')
-    if (storeUserShifts === false) {
-        req.flash('err', 'Please enter username and select days');
-
-        res.render("index")
-    } else {
-        res.render("successRoute", {
-            name,
-            days,
-        })
-    }
-
-});
+app.post("/waiters/:username", waiterRoutes.storeUserAndShifts);
 
 
-app.get("/waiters/:username", async function(req, res) {
-    let name = await req.params.username;
-    let daysObj = await waiterFacFun.daysObject(name);
-    let greet = await waiterFacFun.greetUser(name)
-    let data = {
-        verify: await waiterFacFun.verifyUser(name),
-        storeUserDetails: await waiterFacFun.storeDetails(name),
-    };
-    try {
-
-        res.render("index", {
-            waiterShifts: data.storeUserDetails,
-            daysObj,
-            name,
-            greet
-        })
-    } catch (error) {
-        console.log(error)
-    }
-});
-app.get("/days", async function(req, res) {
-    let allShifts = await waiterFacFun.daysObject();
-
-
-
-    res.render("days", {
-        allShifts
-    })
-});
-app.get("/reset", async function(req, res) {
-    let resetDb = await waiterFacFun.clearAllShifts();
-    res.render("days", {
-        resetDb
-    })
-})
+app.get("/waiters/:username", waiterRoutes.verifyGreetStoreWaiter);
+app.get("/days", waiterRoutes.daysRoute);
+app.get("/reset", waiterRoutes.resetDb);
 
 let PORT = process.env.PORT || 3000
 app.listen(PORT, function() {
