@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 39, 122);
+    background-color: rgb(153, 97, 51);
     /* overflow: hidden; */
     /* padding-bottom: 2em; */
 }
@@ -17,7 +17,7 @@ body {
     /* font-weight: 400; */
     /* font-size: xx-large; */
     color: white;
-    background-color: rgb(255, 39, 122);
+    background-color: rgb(153, 97, 51);
     /* margin: auto; */
     /* background-image: url(https://images.pexels.com/photos/4033639/pexels-photo-4033639.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
     background-repeat: no-repeat;
@@ -25,12 +25,12 @@ body {
 }
 
 .center-div {
-    background-color: rgba(236, 168, 194, 0.2);
-    border-radius: 5%;
+    background-color: rgb(178, 136, 102);
+    border-radius: 2%;
 }
 
 .days-div {
-    background-color: rgb(255, 39, 122);
+    background-color: rgb(153, 97, 51);
     border-radius: 5px;
 }
 
@@ -42,5 +42,8 @@ body {
 
 /* .shifts {
     color: white;
-    background-color: rgb(255, 39, 122);
+    background-color:rgb(153, 97, 51);
+
+
+;
 } */
