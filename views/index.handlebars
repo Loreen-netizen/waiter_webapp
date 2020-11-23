@@ -4,22 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>waiter_web_application</title>
+    <title>Royalty Cafe`</title>
 </head>
 
 <body>
-    <div class="container mainDiv justify-content-center">
+    <div class="container mainDiv justify-content-center my-5">
 
 
-        <div class="row">
+        <div class="row justify-content-center">
 
-            <div class="col-1">
-                <h3></h3>
-            </div>
-            <div class="row">
+          <div class="row justify-content-center">
                  {{#if greet}}
             
-            <div class="alert alert-text alert-dismissible my-5 mr-5 justify-content-center col-12">
+            <div class="alert alert-text alert-dismissible my-5 justify-content-center col-12 greet">
 
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <p class="text-center h4">{{greet}} </p>
@@ -37,7 +34,7 @@
             <div class="col-9 text-center display-5 w-100 p-5 mt-5 center-div">
 
                 <div class="row">
-                    <h2 class="col-12 titleHeader">Waiter Availability</h2>
+                    <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
                 </div>
                 <form action="/waiters/{{name}}" method="POST">
                     <div class="row py-5 px-5">
@@ -64,28 +61,12 @@
 
 
                     {{/if}}
-                    <div class="col-12">
-
-                    </div>
-
-                    <div class="col-12">
-
-
-                    </div>
 
 
             </div>
-
-            <div class="col-1">
-            </div>
-
-            <div class="row">
-
-            </div>
-
 
         </div>
-
+    </div>
 </body>
 
 </html>
