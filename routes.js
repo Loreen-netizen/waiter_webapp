@@ -4,14 +4,10 @@ let waiterFacFunRoutes = function(waiterFacFun) {
 
         try {
             let name = req.params.username;
-            let daysObj = await waiterFacFun.getDays();
-            console.log({ daysObj })
             if (!name) {
                 (req.flash('name', 'please enter name in URL e.g : http://localhost:3000/waiters/ANDRE'))
             };
-            res.render("index", {
-                daysObj
-            })
+            res.render("index")
         } catch (error) {
             console.log(error)
         }
@@ -24,7 +20,7 @@ let waiterFacFunRoutes = function(waiterFacFun) {
             let storeUserShifts = await waiterFacFun.storeShifts(name, days);
             req.flash('shifts', 'success!! shifts submitted')
             if (storeUserShifts === false) {
-                req.flash('err', 'Please enter username and select days');
+                req.flash('err', 'Please enter username in URL and select days');
 
                 res.render("index")
             } else {

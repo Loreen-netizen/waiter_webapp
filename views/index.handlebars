@@ -18,14 +18,14 @@
             
             <div class="alert alert-text alert-dismissible my-5 justify-content-center col-12 greet">
 
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> --}}
                 <p class="text-center h4">{{greet}} </p>
             </div>
             {{else}}
               <div class="alert alert-text alert-dismissible my-5 ml-5 justify-content-center col-8">
 
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p class="text-center h4">{{messages.name}} </p>
+                {{!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> --}}
+                <p class="text-center h3">{{messages.name}} </p>
             </div>
             
             {{/if}}
@@ -37,7 +37,7 @@
                     <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
                 </div>
                 <form action="/waiters/{{name}}" method="POST">
-                    <div class="row py-5 px-5">
+                    <div class="row py-5 px-5 justify-content-center">
 
                         {{#each daysObj}}
                         <div class="form-check form-check-inline py-5">
@@ -45,7 +45,10 @@
                                 value={{this.name}} {{checked}} {{disabled}}>
                             <label class="form-check-label" for="inlineCheckbox1">{{this.name}}</label>
                         </div>
+                      
                         {{/each}}
+                        {{#if daysObj}}  <button type="submit" class="btn btn-light btn mt-3" name="submitShifts">submit shifts</button>{{/if}}
+
 
                     </div>
                     {{#if messages.err}}
@@ -53,12 +56,6 @@
                     <br>
                     <a href="/waiters/:username" type="submit" class="btn btn-light btn mt-3" name="submitShifts">pick
                         shifts</a>
-
-
-
-                    {{else}}
-                    <button type="submit" class="btn btn-light btn mt-3 " name="submitShifts">submit shifts</button>
-
 
                     {{/if}}
 

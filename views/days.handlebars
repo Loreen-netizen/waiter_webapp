@@ -19,9 +19,19 @@
                 <div class="row">
                     <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
                 </div>
+                <div class="row">
+                    <div class="col-4 mt-3">
+                        <ul class="list-unstyled">
+                            <h4>KEY</h4>
+                            <li class="text-success font-weight-bold h5">Enough Waiters</li>
+                             <li class="text-danger font-weight-bold h5">Day Over-booked</li>
+                            <li class="text-warning font-weight-bold h5">Not Enough Waiters</li>
+                           
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="row py-5 px-5">
-
                     <table class="table text-light">
                         {{!-- <thead> --}}
                         <tr>
@@ -32,7 +42,7 @@
                         {{!-- <tbody> --}}
 
                         {{#each allShifts}}
-                        
+
                         <tr class="{{color}}">
                             <td class="h4"><a href="#" class="text-reset text-decoration-none">{{this.name}}</a></td>
 
@@ -45,12 +55,15 @@
 
                             </td>
                         </tr>
-                        
+
                         {{/each}}
                         {{!-- </tbody> --}}
                     </table>
 
+
+
                 </div>
+
 
 
                 <div class="row">
@@ -68,6 +81,7 @@
                     </form>
 
                 </div>
+
 
             </div>
         </div>
