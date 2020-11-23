@@ -77,15 +77,20 @@ let waiterFacFun = function(pool) {
             if (waiterName === ":username" || daysSelected === undefined) {
                 return (false)
             } else {
+                if (typeof(daysSelected) === "string") {
+                    let day = daysSelected
+                    var dayId = await getDayId(day);
+                    let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
+                } else {
+                    for (let workday of daysSelected) {
+                        if (day.name === workday) {
+                            var dayId = await getDayId(workday);
+                            let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
 
-                for (const workday of daysSelected) {
-
-                    if (day.name === workday) {
-                        var dayId = await getDayId(workday);
-                        let storeShiftsQuery = await pool.query('INSERT INTO shifts (waiter_id, day_id) VALUES ($1, $2)', [waiterId, dayId]);
-
+                        }
                     }
                 }
+
             }
 
         }
