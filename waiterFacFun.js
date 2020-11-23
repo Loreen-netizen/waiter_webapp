@@ -36,11 +36,12 @@ let waiterFacFun = function(pool) {
     }
 
 
-    let storeDetails = async function(userName) {
+    let storeDetails = async function(name) {
         let isUser = await verifyUser();
         if (isUser != 1) {
+            let theName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 
-            let storeDetailsQuery = await pool.query('INSERT INTO waiters (name) VALUES ($1)', [userName]);
+            let storeDetailsQuery = await pool.query('INSERT INTO waiters (name) VALUES ($1)', [theName]);
             storeDetailsQuery;
         }
     }
@@ -54,7 +55,8 @@ let waiterFacFun = function(pool) {
     };
 
     let getNameId = async function(waiterName) {
-        let getNameIdQuery = await pool.query(`SELECT (id) FROM waiters WHERE name = ($1)`, [waiterName]);
+        let name = waiterName.charAt(0).toUpperCase() + waiterName.slice(1).toLowerCase();
+        let getNameIdQuery = await pool.query(`SELECT (id) FROM waiters WHERE name = ($1)`, [name]);
         return getNameIdQuery.rows[0].id;
     }
     let getUserShifts = async function(id) {
@@ -68,6 +70,7 @@ let waiterFacFun = function(pool) {
     }
 
     let storeShifts = async function(waiterName, daysSelected) {
+
         let daysObj = await daysObject();
         let waiterId = await getNameId(waiterName);
         let userSHifts = await getUserShifts(waiterId);
@@ -122,7 +125,9 @@ let waiterFacFun = function(pool) {
 
     let greetUser = async function(name) {
         if (name != ":username") {
-            var greet = await ("Hi " + name + "! get started by picking your shifts for the week");
+            let theName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+
+            var greet = await ("Hi " + theName + "! get started by picking your shifts for the week");
             return greet;
         }
 
