@@ -2,13 +2,14 @@
     background-image: url(https://images.pexels.com/photos/672998/pexels-photo-672998.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
     background-position: center;
     background-color: rgb(153, 97, 51);
-    overflow: hidden;
 }
 
 .mainDiv {
     color: white;
     background-color: rgb(178, 136, 102);
     border-radius: 2%;
+    overflow: auto;
+    height: 1000px;
 }
 
 .days-div {

@@ -7,7 +7,7 @@
     <title>login_web_application</title>
 </head>
 
-<body>
+<body class="main">
     <div class="main">
         <div class="row mainDiv justify-content-center p-5 my-5">
 
@@ -22,9 +22,9 @@
 
                 <div class="col-12 error py-0 mx-0">
                     {{#if messages.info}}
-                    <div class="alert alert-success alert-dismissible">
+                    <div class="alert alert-success">
 
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> --}}
                         <p class="text-center">{{messages.info}} </p>
                     </div>
                     <div class="row justify-content-center">
@@ -54,7 +54,7 @@
                     {{#if messages.shifts}}
                     <div class="alert alert-success alert-dismissible my-5">
 
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> --}}
                         <p class="text-center">{{messages.shifts}} </p>
                     </div>
                     <div class="row justify-content-center">

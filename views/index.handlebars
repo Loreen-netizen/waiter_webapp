@@ -26,7 +26,7 @@
                 {{/if}}
             </div>
 
-            <div class="col-10 text-center display-5 w-100 p-5 mt-5 center-div h-100">
+            <div class="col-10 text-center display-5 w-100 p-5 mt-5 center-div">
 
                 <div class="row">
                     <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
@@ -40,17 +40,22 @@
                                 value={{this.name}} {{checked}} {{disabled}}>
                             <label class="form-check-label" for="inlineCheckbox1">{{this.name}}</label>
                         </div>
+                       
+                            {{/each}}
+                             <div class="col-12">
+                            {{#if daysObj}} <button type="submit" class="btn btn-light btn mt-3"
+                                name="submitShifts">submit
+                                shifts</button>{{/if}}
+                        </div>
 
-                        {{/each}}
-                        {{#if daysObj}} <button type="submit" class="btn btn-light btn mt-3" name="submitShifts">submit
-                            shifts</button>{{/if}}
 
 
                     </div>
                     {{#if messages.err}}
-                    <p class="text-center text-danger bg-light h5 rounded">{{messages.err}} </p>
+                    <p class="text-center text-danger h4">{{messages.err}} </p>
                     <br>
-                    <a href="/waiters/:username" type="submit" class="btn btn-light btn mt-3" name="submitShifts">pick
+
+                    <a href="/waiters/:username" type="submit" class="btn btn-light btn mt-5" name="submitShifts">pick
                         shifts</a>
 
                     {{/if}}
