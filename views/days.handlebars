@@ -8,83 +8,87 @@
 </head>
 
 <body>
-    <div class="container mainDiv justify-content-center">
-        <div class="row">
-
-            <div class="col-1">
-                <h3></h3>
-            </div>
-            <div class="col-9 text-center display-5 w-100 p-5 mt-5 days-div">
-
-                <div class="row">
-                    <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
-                </div>
-                <div class="row">
-                    <div class="col-4 mt-3">
-                        <ul class="list-unstyled">
-                            <h4>KEY</h4>
-                            <li class="text-success font-weight-bold h5">Enough Waiters</li>
-                             <li class="text-danger font-weight-bold h5">Day Over-booked</li>
-                            <li class="text-warning font-weight-bold h5">Not Enough Waiters</li>
-                           
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="row py-5 px-5">
-                    <table class="table text-light">
-                        {{!-- <thead> --}}
-                        <tr>
-                            <th scope="col" class="h4">Day</th>
-                            <th scope="col" class="h4">Waiters Working</th>
-                        </tr>
-                        {{!-- </thead> --}}
-                        {{!-- <tbody> --}}
-
-                        {{#each allShifts}}
-
-                        <tr class="{{color}}">
-                            <td class="h4"><a href="#" class="text-reset text-decoration-none">{{this.name}}</a></td>
+    <div class="main row">
 
 
-
-                            <td class="h4 list-group list-group-horizontal">
-                                {{#each this.waiters}}
-                                <p class="list-group-item li-g-item shifts">{{this.waiter}}</p>
-                                {{/each}}
-
-                            </td>
-                        </tr>
-
-                        {{/each}}
-                        {{!-- </tbody> --}}
-                    </table>
-
-
-
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col-6 mt-5">
-                        <a href="/" type="submit" class="btn btn-light btn">back</a>
-
-                    </div>
-                    <form action="/reset" method="GET">
-                        <div class="col-6 mt-5">
-                            <button type="submit"
-                                class="btn btn-outline-danger px-5 text-nowrap text-danger bg-light">Clear
-                                Shifts</button>
-
-                        </div>
-                    </form>
-
-                </div>
-
-
-            </div>
+        <div class="col-2">
+            <h3></h3>
         </div>
+
+        <div class="col-8 text-center display-5 p-5 my-5 days-div">
+
+            <div class="row">
+                <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
+            </div>
+            <div class="row">
+                <div class="col-4 mt-3">
+                    <ul class="list-unstyled">
+                        <h4>KEY</h4>
+                        <li class="text-success font-weight-bold h5">Enough Waiters</li>
+                        <li class="text-danger font-weight-bold h5">Day Over-booked</li>
+                        <li class="text-warning font-weight-bold h5">Not Enough Waiters</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row py-5 px-5 table-responsive">
+                <table class="table text-light">
+
+                    <tr>
+                        <th scope="col" class="h4">Day</th>
+                        <th scope="col" class="h4">Waiters Working</th>
+                    </tr>
+
+
+                    {{#each allShifts}}
+
+                    <tr class="{{color}}">
+                        <td class="h4"><a href="#" class="text-reset text-decoration-none">{{this.name}}</a></td>
+
+
+
+                        <td class="h4 list-group list-group-horizontal">
+                            {{#each this.waiters}}
+                            <p class="list-group-item li-g-item shifts">{{this.waiter}}</p>
+                            {{/each}}
+
+                        </td>
+                    </tr>
+
+                    {{/each}}
+
+                </table>
+
+
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-6 mt-5">
+                    <a href="/" type="submit" class="btn btn-light btn">back</a>
+
+                </div>
+                <form action="/reset" method="GET">
+                    <div class="col-6 mt-5">
+                        <button type="submit" class="btn btn-outline-danger px-5 text-nowrap text-danger bg-light">Clear
+                            Shifts</button>
+
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="col-2">
+        <h3></h3>
+    </div>
+    </div>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ let waiterFacFunRoutes = function(waiterFacFun) {
         try {
             let name = req.params.username;
             if (!name) {
-                (req.flash('name', 'please enter name in URL e.g : http://localhost:3000/waiters/ANDRE'))
+                (req.flash('name', 'please enter name in URL e.g. /waiters/YOUR NAME'))
             };
             res.render("index")
         } catch (error) {

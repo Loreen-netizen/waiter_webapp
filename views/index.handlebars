@@ -8,30 +8,25 @@
 </head>
 
 <body>
-    <div class="container mainDiv justify-content-center my-5">
+    <div class="row main">
+        <div class="col-1"></div>
+        <div class="mainDiv justify-content-center my-5 col-10">
+
+            <div class="row justify-content-center">
+                {{#if greet}}
 
 
-        <div class="row justify-content-center">
+                <p class="text-center h4 alert alert-text alert-dismissible my-5 col-10">{{greet}} </p>
 
-          <div class="row justify-content-center">
-                 {{#if greet}}
-            
-            <div class="alert alert-text alert-dismissible my-5 justify-content-center col-12 greet">
+                {{else}}
 
-                {{!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> --}}
-                <p class="text-center h4">{{greet}} </p>
+                <div class="h4 text-center my-5 alert alert-text alert-dismissible col-10">{{messages.name}} </div>
+
+
+                {{/if}}
             </div>
-            {{else}}
-              <div class="alert alert-text alert-dismissible my-5 ml-5 justify-content-center col-8">
 
-                {{!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> --}}
-                <p class="text-center h3">{{messages.name}} </p>
-            </div>
-            
-            {{/if}}
-            </div>
-           
-            <div class="col-9 text-center display-5 w-100 p-5 mt-5 center-div">
+            <div class="col-10 text-center display-5 w-100 p-5 mt-5 center-div h-100">
 
                 <div class="row">
                     <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
@@ -45,9 +40,10 @@
                                 value={{this.name}} {{checked}} {{disabled}}>
                             <label class="form-check-label" for="inlineCheckbox1">{{this.name}}</label>
                         </div>
-                      
+
                         {{/each}}
-                        {{#if daysObj}}  <button type="submit" class="btn btn-light btn mt-3" name="submitShifts">submit shifts</button>{{/if}}
+                        {{#if daysObj}} <button type="submit" class="btn btn-light btn mt-3" name="submitShifts">submit
+                            shifts</button>{{/if}}
 
 
                     </div>
@@ -62,7 +58,9 @@
 
             </div>
 
+
         </div>
+        <div class="col-1"></div>
     </div>
 </body>
 
