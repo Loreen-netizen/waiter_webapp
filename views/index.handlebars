@@ -8,25 +8,25 @@
 </head>
 
 <body>
-    <div class="row main">
-        <div class="col-1"></div>
-        <div class="mainDiv justify-content-center my-5 col-10">
+    <div class="row main justify-content-center">
+        <div class="col-3"></div>
+        <div class="mainDiv justify-content-center my-5 col-6">
 
             <div class="row justify-content-center">
                 {{#if greet}}
 
 
-                <p class="text-center h4 alert alert-text alert-dismissible my-5 col-10">{{greet}} </p>
+                <p class="text-center h4 alert alert-text alert-dismissible my-5 col-12">{{greet}} </p>
 
                 {{else}}
 
-                <div class="h4 text-center my-5 alert alert-text alert-dismissible col-10">{{messages.name}} </div>
+                <div class="h4 text-center my-5 alert alert-text alert-dismissible col-12">{{messages.name}} </div>
 
 
                 {{/if}}
             </div>
 
-            <div class="col-10 text-center display-5 w-100 p-5 mt-5 center-div">
+            <div class="col-12 text-center display-5 w-100 p-5 mt-5 center-div">
 
                 <div class="row">
                     <h2 class="col-12 titleHeader h1">Royalty Cafe`</h2>
@@ -65,7 +65,7 @@
 
 
         </div>
-        <div class="col-1"></div>
+        <div class="col-3"></div>
     </div>
 </body>
 

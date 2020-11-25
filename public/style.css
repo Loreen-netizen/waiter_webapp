@@ -6,7 +6,7 @@
 
 .mainDiv {
     color: white;
-    background-color: rgb(178, 136, 102);
+    background-image: linear-gradient(to bottom, rgb(178, 136, 102), rgb(83, 45, 13), rgba(83, 45, 13, 0.3));
     border-radius: 2%;
     overflow: auto;
     height: 1000px;
