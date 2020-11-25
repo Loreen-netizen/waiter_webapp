@@ -61,7 +61,7 @@ describe("waiterFacFun", async function() {
         let verifyInfoQuery = await waiterFacFun.verifyUser('mimi');
         //assert
         assert.deepEqual([{
-            name: 'mimi'
+            name: 'Mimi'
         }], verifyInfoQuery);
 
     });

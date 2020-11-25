@@ -45,8 +45,9 @@ let waiterFacFun = function(pool) {
             storeDetailsQuery;
         }
     }
-    let verifyUser = async function(userName) {
+    let verifyUser = async function(name) {
         try {
+            let userName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
             var verifyUserQuery = await pool.query(`SELECT name FROM waiters WHERE name=($1)`, [userName]);
             return verifyUserQuery.rows
         } catch (error) {
