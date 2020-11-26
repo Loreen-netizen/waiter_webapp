@@ -50,7 +50,9 @@
 
                         <td class="h4 list-group list-group-horizontal">
                             {{#each this.waiters}}
-                            <p class="list-group-item li-g-item shifts">{{this.waiter}}</p>
+                            <p class="list-group-item li-g-item shifts">
+                                <a href="/waiters/{{this.waiter}}">{{this.waiter}}</a>
+                            </p>
                             {{/each}}
 
                         </td>
